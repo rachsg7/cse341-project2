@@ -1,4 +1,3 @@
- user / Rachel / skeleton
  const path = require('path');
  const PORT = process.env.PORT || 5000;
 
