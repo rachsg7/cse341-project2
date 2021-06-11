@@ -151,6 +151,13 @@ body {
     background-color: rgba(95, 49, 49, 0.3);
 }
 
+.message_main {
+    margin-top: 10px;
+    background: linear-gradient( 90deg, rgb(187, 187, 187) 0%, rgb(238, 238, 238) 35%, rgb(133, 133, 133) 100%);
+    padding: 10px 50px;
+    border-radius: 10px;
+}
+
 .backdrop {
     position: fixed;
     top: 0;
