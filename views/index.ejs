@@ -5,5 +5,15 @@
             <p>What is Pictournal? It is a picture sharing and journal entry social media website to keep track of all the important memories in your life. You are in charge of everything you share, you can either choose to share with friends, or keep things
                 private for special memories.
             </p>
+            <div class="main_width">
+                <ul class="gallery">
+                    <% for (var i = 0; i < 30; i++){ 
+                        var wid = Math.floor(Math.random() * (4 - 2) + 2)*100;
+                        var hig = Math.floor(Math.random() * (4 - 2) + 2)*100;%>
+                        <li><img src="https://source.unsplash.com/random/<%= wid %>x<%= hig %>?sig=<%= i %>" loading="lazy"></li>
+
+                        <% } %>
+                </ul>
+            </div>
         </main>
         <%- include('./includes/end.ejs') %>
