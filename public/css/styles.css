@@ -167,9 +167,63 @@ body {
 }
 
 p {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.centered {
   max-width: 50%;
   margin: auto;
+}
+
+.profile_header {
+  margin-top: 2em;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
+  -ms-grid-rows: 1fr 2fr;
+      grid-template-rows: 1fr 2fr;
+  grid-gap: 15px;
+}
+
+.profile_header img {
+  -ms-grid-row: 1;
+      grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.user_name {
+  font-size: xx-large;
+  font-family: 'Bodoni Moda', sans-serif;
+}
+
+.profile_header .user_edit {
+  -ms-grid-column: 3;
+      grid-column-start: 3;
+  grid-column-end: 4;
+}
+
+.profile_header .user_bio {
+  -ms-grid-row: 2;
+      grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+.btn {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: .5em;
   font-family: 'Montserrat', sans-serif;
+  max-width: 200px;
+  margin: 15px 0;
+}
+
+.btn:hover {
+  color: white;
+  background-color: black;
 }
 
 @media only screen and (min-width: 768px) {
@@ -230,6 +284,10 @@ ul {
   height: 100%;
 }
 
+.profile_img {
+  border-radius: 150px;
+}
+
 @media (max-aspect-ratio: 1 / 1) {
   .gallery li {
     height: 30vh;
@@ -258,5 +316,32 @@ ul {
     max-height: 75vh;
     min-width: 0;
   }
+}
+
+.form-edit {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 2em;
+  font-family: 'Montserrat', sans-serif;
+}
+
+form label {
+  padding: 1em 0 .5em 0;
+}
+
+form input,
+form textarea {
+  padding: 1em;
+}
+
+form textarea {
+  font-family: 'Montserrat', sans-serif;
+  outline: none;
+  resize: none;
 }
 /*# sourceMappingURL=styles.css.map */

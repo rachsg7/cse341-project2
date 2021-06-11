@@ -1,0 +1,15 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/nav.ejs') %>
+        <main>
+            <div class="main_width">
+                <form class="form-edit">
+                    <div class="user_name">Random Name</div>
+                    <label for="profile_img">Edit Profile Picture</label>
+                    <input type="file" name="profile_img" id="userImage">
+                    <label for="user_bio">Edit Bio</label>
+                    <textarea name="user_bio" id="user_bio"></textarea>
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

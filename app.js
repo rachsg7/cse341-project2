@@ -10,10 +10,13 @@
  app.set('views', 'views');
 
  const mainRouter = require('./routes/main');
+ const userRouter = require('./routes/user')
 
  app.use(bodyParser.urlencoded({ extended: false }));
  app.use(express.static(path.join(__dirname, 'public')));
 
  app.use(mainRouter);
+ app.use(userRouter);
+
 
  app.listen(PORT);

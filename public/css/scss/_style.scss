@@ -167,9 +167,57 @@ body {
 }
 
 p {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.centered {
     max-width: 50%;
     margin: auto;
+}
+
+.profile_header {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr;
+    grid-gap: 15px;
+}
+
+.profile_header img {
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.user_name {
+    font-size: xx-large;
+    font-family: 'Bodoni Moda', sans-serif;
+}
+
+.profile_header .user_edit {
+    grid-column-start: 3;
+    grid-column-end: 4;
+}
+
+.profile_header .user_bio {
+    grid-row-start: 2;
+    grid-row-end: 4;
+}
+
+.btn {
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: .5em;
     font-family: 'Montserrat', sans-serif;
+    max-width: 200px;
+    margin: 15px 0;
+}
+
+.btn:hover {
+    color: white;
+    background-color: black;
 }
 
 @include MQ(M) {

@@ -3,8 +3,8 @@
     <button id="side-menu-toggle">☰</button>
     <nav class="main__nav main_width">
         <ul class="main__nav_list">
-            <li class="main__nav_item"><a href="" class="active">Pictournal</a></li>
-            <li class="main__nav_item"><a href="">Your Profile</a></li>
+            <li class="main__nav_item"><a href="/" class="<%= path === '/' ? 'active' : '' %>">Pictournal</a></li>
+            <li class="main__nav_item"><a href="/profile" class="<%= path === '/profile' ? 'active' : '' %>">Profile</a></li>
             <li class="main__nav_item"><a href="">Add Pictournal</a></li>
         </ul>
         <ul class="main__nav_list">
@@ -17,7 +17,7 @@
 <nav class="mobile-nav">
     <ul class="mobile-nav__item-list">
         <li class="mobile-nav__item"><a href="" class="active">Pictournal</a></li>
-        <li class="mobile-nav__item"><a href="">Your Profile</a></li>
+        <li class="mobile-nav__item"><a href="">Profile</a></li>
         <li class="mobile-nav__item"><a href="">Add Pictournal</a></li>
         <li class="mobile-nav__item"><a href="">Login</a></li>
         <li class="mobile-nav__item"><a href="">Signup</a></li>

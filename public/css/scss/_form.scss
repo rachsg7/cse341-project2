@@ -1,0 +1,21 @@
+.form-edit {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2em;
+    font-family: 'Montserrat', sans-serif
+}
+
+form label {
+    padding: 1em 0 .5em 0;
+}
+
+form input,
+form textarea {
+    padding: 1em;
+}
+
+form textarea {
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+    resize: none;
+}

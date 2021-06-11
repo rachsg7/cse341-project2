@@ -1,6 +1,22 @@
-<%- include('./includes/head.ejs') %>
-    <%- include('./includes/nav.ejs') %>
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/nav.ejs') %>
         <main>
+            <div class="main_width">
+                <div class="profile_header">
+                    <img class="profile_img" src="https://source.unsplash.com/random/300x300">
+                    <div class="user_name">Random Name</div>
+                    <span><a class="btn user_edit" href="/edit-profile">Edit Profile</a></span>
+                    <p class="user_bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis purus eu lacus sodales maximus. Integer ornare iaculis ipsum id scelerisque. Aliquam erat volutpat. Aliquam non tempus est. Mauris euismod leo ac lorem tristique
+                        molestie. Nunc eu dapibus arcu. Quisque eleifend magna ut erat volutpat aliquam. Suspendisse potenti. Pellentesque consectetur.</p>
+                </div>
+                <ul class="gallery">
+                    <% for (var x = 0; x < 4; x++){for (var i = 0; i < 10; i++){ <!-- Running the loop outside of the loop multiple times, produces more random images. Doing 40 in one loop ends up with duplicates-->
+                            var wid = Math.floor(Math.random() * (4 - 2) + 2)*100;
+                            var hig = Math.floor(Math.random() * (4 - 2) + 2)*100;%>
+                        <li><img src="https://source.unsplash.com/random/<%= wid %>x<%= hig %>?sig=<%= i %>" loading="lazy"></li>
 
+                        <% }} %>
+                </ul>
+            </div>
         </main>
-        <%- include('./includes/end.ejs') %>
+        <%- include('../includes/end.ejs') %>

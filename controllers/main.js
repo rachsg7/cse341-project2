@@ -1,5 +1,6 @@
 exports.getIndex = (req, res, next) => {
     res.render('index', {
-        path: '/'
+        path: '/',
+        pageTitle: 'Welcome to Pictournal'
     });
 };
