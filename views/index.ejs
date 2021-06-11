@@ -7,12 +7,12 @@
             </p>
             <div class="main_width">
                 <ul class="gallery">
-                    <% for (var x = 0; x < 4; x++){for (var i = 0; i < 10; i++){ <!-- Running the loop outside of the loop multiple times, produces more random images. Doing 40 in one loop ends up with duplicates-->
+                    <% for (var i = 0; i < 40; i++){ 
                         var wid = Math.floor(Math.random() * (4 - 2) + 2)*100;
                         var hig = Math.floor(Math.random() * (4 - 2) + 2)*100;%>
                         <li><img src="https://source.unsplash.com/random/<%= wid %>x<%= hig %>?sig=<%= i %>" loading="lazy"></li>
 
-                        <% }} %>
+                        <% } %>
                 </ul>
             </div>
         </main>
