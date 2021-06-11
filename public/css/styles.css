@@ -167,8 +167,6 @@ body {
 }
 
 p {
-  max-width: 50%;
-  margin: auto;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -206,6 +204,7 @@ ul {
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  padding: 0;
 }
 
 .gallery li {
