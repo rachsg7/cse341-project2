@@ -227,6 +227,11 @@ p {
     background-color: black;
 }
 
+.link {
+    text-decoration: none;
+    color: black;
+}
+
 @include MQ(M) {
     .main__nav {
         display: flex;

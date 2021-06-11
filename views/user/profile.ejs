@@ -8,6 +8,13 @@
                     <span><a class="btn user_edit" href="/edit-profile">Edit Profile</a></span>
                     <p class="user_bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis purus eu lacus sodales maximus. Integer ornare iaculis ipsum id scelerisque. Aliquam erat volutpat. Aliquam non tempus est. Mauris euismod leo ac lorem tristique
                         molestie. Nunc eu dapibus arcu. Quisque eleifend magna ut erat volutpat aliquam. Suspendisse potenti. Pellentesque consectetur.</p>
+                    <span><a href="/following" class="link"><strong>Following: </strong>
+                        <% 
+                        var min = Math.ceil(1);
+                        var max = Math.floor(2000);
+                        var random = Math.floor(Math.random() * (max - min) + min); %>
+                            <%= random %>
+                    </a></span>
                 </div>
                 <ul class="gallery">
                     <% for (var x = 0; x < 4; x++){for (var i = 0; i < 10; i++){ <!-- Running the loop outside of the loop multiple times, produces more random images. Doing 40 in one loop ends up with duplicates-->

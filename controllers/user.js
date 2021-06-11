@@ -10,4 +10,11 @@ exports.getEditProfile = (req, res, next) => {
         path: '/profile',
         pageTitle: 'Edit Profile'
     })
-}
+};
+
+exports.getFollowing = (req, res, next) => {
+    res.render('user/follow-list', {
+        path: '/profile',
+        pageTitle: 'Following'
+    })
+};

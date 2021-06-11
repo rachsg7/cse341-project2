@@ -8,4 +8,6 @@ router.get('/profile', userController.getProfile);
 
 router.get('/edit-profile', userController.getEditProfile);
 
+router.get('/following', userController.getFollowing);
+
 module.exports = router;
