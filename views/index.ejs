@@ -1,18 +1,21 @@
 <%- include('./includes/head.ejs') %>
     <%- include('./includes/nav.ejs') %>
-        <main>
-            <h1 class="main__title">Welcome to Pictournal</h1>
-            <p class="centered">What is Pictournal? It is a picture sharing and journal entry social media website to keep track of all the important memories in your life. You are in charge of everything you share, you can either choose to share with friends, or keep things
-                private for special memories.
-            </p>
-            <div class="main_width">
+        <main class="main_width">
+            <div class="message_main">
+                <h1 class="main__title">Welcome to Pictournal</h1>
+                <div class="line"></div>
+                <p>What is Pictournal? It is a picture sharing and journal entry social media website to keep track of all the important memories in your life. You are in charge of everything you share, you can either choose to share with friends, or keep
+                    things private for special memories.
+                </p>
+            </div>
+            <div>
                 <ul class="gallery">
-                    <% for (var x = 0; x < 4; x++){for (var i = 0; i < 10; i++){ <!-- Running the loop outside of the loop multiple times, produces more random images. Doing 40 in one loop ends up with duplicates-->
-                        var wid = Math.floor(Math.random() * (4 - 2) + 2)*100;
-                        var hig = Math.floor(Math.random() * (4 - 2) + 2)*100;%>
-                        <li><img src="https://source.unsplash.com/random/<%= wid %>x<%= hig %>?sig=<%= i %>" loading="lazy"></li>
-
-                        <% }} %>
+                    <% var max = 50;
+                        for (var i = 0; i < max; i++){ 
+                        var w = Math.floor(Math.random() * (5 - 2) + 2)*100;
+                        var h = Math.floor(Math.random() * (5 - 2) + 2)*100;%>
+                        <li><a href="#<%= i %>"><img src="https://source.unsplash.com/random/<%= w %>x<%= h %>?sig=<%= i %>" loading="lazy"></a></li>
+                        <% } %>
                 </ul>
             </div>
         </main>
