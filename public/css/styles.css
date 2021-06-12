@@ -190,37 +190,12 @@ p {
 }
 
 .profile_header {
-  margin-top: 2em;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 2fr 1fr;
-      grid-template-columns: 1fr 2fr 1fr;
-  -ms-grid-rows: 1fr 2fr;
-      grid-template-rows: 1fr 2fr;
-  grid-gap: 15px;
-}
-
-.profile_header img {
-  -ms-grid-row: 1;
-      grid-row-start: 1;
-  grid-row-end: 3;
+  margin: 1em;
 }
 
 .user_name {
   font-size: xx-large;
   font-family: 'Bodoni Moda', sans-serif;
-}
-
-.profile_header .user_edit {
-  -ms-grid-column: 3;
-      grid-column-start: 3;
-  grid-column-end: 4;
-}
-
-.profile_header .user_bio {
-  -ms-grid-row: 2;
-      grid-row-start: 2;
-  grid-row-end: 4;
 }
 
 .btn {
@@ -256,6 +231,34 @@ p {
   }
   .user-message {
     width: 30rem;
+  }
+  .profile_header {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+    -ms-grid-rows: 1fr 2fr;
+        grid-template-rows: 1fr 2fr;
+    grid-gap: 15px;
+    justify-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .profile_header img {
+    -ms-grid-row: 1;
+        grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .profile_header .user_edit {
+    -ms-grid-column: 3;
+        grid-column-start: 3;
+    grid-column-end: 4;
+  }
+  .profile_header .user_bio {
+    -ms-grid-row: 2;
+        grid-row-start: 2;
+    grid-row-end: 4;
   }
 }
 

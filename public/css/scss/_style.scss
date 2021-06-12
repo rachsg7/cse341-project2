@@ -188,31 +188,12 @@ p {
 }
 
 .profile_header {
-    margin-top: 2em;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 2fr;
-    grid-gap: 15px;
-}
-
-.profile_header img {
-    grid-row-start: 1;
-    grid-row-end: 3;
+    margin: 1em;
 }
 
 .user_name {
     font-size: xx-large;
     font-family: 'Bodoni Moda', sans-serif;
-}
-
-.profile_header .user_edit {
-    grid-column-start: 3;
-    grid-column-end: 4;
-}
-
-.profile_header .user_bio {
-    grid-row-start: 2;
-    grid-row-end: 4;
 }
 
 .btn {
@@ -246,5 +227,25 @@ p {
     }
     .user-message {
         width: 30rem;
+    }
+    .profile_header {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 1fr 2fr;
+        grid-gap: 15px;
+        justify-items: center;
+        align-items: center;
+    }
+    .profile_header img {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+    .profile_header .user_edit {
+        grid-column-start: 3;
+        grid-column-end: 4;
+    }
+    .profile_header .user_bio {
+        grid-row-start: 2;
+        grid-row-end: 4;
     }
 }
