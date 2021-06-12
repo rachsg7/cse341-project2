@@ -1,6 +1,15 @@
 <%- include('../includes/head.ejs') %>
     <%- include('../includes/nav.ejs') %>
         <main>
-
+            <div class="main_width">
+                <% for(let i=0; i < 15; i++) { %>
+                    <article class="follow_user">
+                        <img class="profile_img" src="https://source.unsplash.com/random/200x200">
+                        <div class="user_name">Random Name</div>
+                        <p class="user_bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis purus eu lacus sodales maximus. Integer ornare iaculis ipsum id scelerisque. Aliquam erat volutpat. Aliquam non tempus est. Mauris euismod leo ac lorem tristique
+                            molestie. Nunc eu dapibus arcu. Quisque eleifend magna ut erat volutpat aliquam. Suspendisse potenti. Pellentesque consectetur.</p>
+                    </article>
+                    <% } %>
+            </div>
         </main>
         <%- include('../includes/end.ejs') %>
