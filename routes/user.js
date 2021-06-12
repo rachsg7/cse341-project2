@@ -10,4 +10,6 @@ router.get('/edit-profile', userController.getEditProfile);
 
 router.get('/following', userController.getFollowing);
 
+router.get('/feed', userController.getFeed);
+
 module.exports = router;

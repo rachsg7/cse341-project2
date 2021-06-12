@@ -30,6 +30,7 @@ html,
 body {
     margin: 0;
     font-family: 'Bodoni Moda', serif;
+    padding-top: 4rem;
 }
 
 .main-header {
@@ -40,6 +41,9 @@ body {
     align-items: center;
     background: rgb(44, 42, 74);
     background: $linear-gradient;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
 }
 
 .main__nav {

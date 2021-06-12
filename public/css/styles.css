@@ -10,6 +10,7 @@ html,
 body {
   margin: 0;
   font-family: 'Bodoni Moda', serif;
+  padding-top: 4rem;
 }
 
 .main-header {
@@ -25,6 +26,9 @@ body {
   background: #2c2a4a;
   background: -webkit-gradient(linear, left top, right top, from(#ef476f), color-stop(35%, #ffd166), to(#118ab2));
   background: linear-gradient(90deg, #ef476f 0%, #ffd166 35%, #118ab2 100%);
+  position: fixed;
+  top: 0;
+  z-index: 10000;
 }
 
 .main__nav {
@@ -261,6 +265,21 @@ p {
   margin-right: auto;
 }
 
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.right {
+  float: right;
+  max-width: 500px;
+}
+
+.left {
+  float: left;
+}
+
 ul {
   list-style: none;
 }
@@ -346,6 +365,54 @@ ul {
   border-bottom: 1px solid black;
   margin: 0;
   margin-top: -10px;
+}
+
+.feed {
+  padding: 20px;
+  margin: 0;
+  height: 500px;
+  max-width: 500px;
+}
+
+.feed img {
+  width: 100%;
+  height: 100%;
+  -webkit-box-shadow: 1px 1px 8px #c2c2c2, -1px -1px 8px #c2c2c2, -1px 1px 8px #c2c2c2, 1px -1px 8px #c2c2c2;
+          box-shadow: 1px 1px 8px #c2c2c2, -1px -1px 8px #c2c2c2, -1px 1px 8px #c2c2c2, 1px -1px 8px #c2c2c2;
+}
+
+.feed_lower {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 10;
+  top: -55px;
+  height: 50px;
+  padding: 10px;
+  color: white;
+}
+
+.icon_ {
+  position: absolute;
+  top: -30px;
+}
+
+.icon__left {
+  padding-left: 30;
+  float: left;
+}
+
+.icon__right {
+  padding-right: 30;
+  float: right;
+}
+
+.icon__text {
+  padding-left: 30;
+}
+
+.user__static {
+  position: fixed;
+  width: 500px;
 }
 
 .form-edit {

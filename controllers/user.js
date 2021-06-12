@@ -18,3 +18,11 @@ exports.getFollowing = (req, res, next) => {
         pageTitle: 'Following'
     })
 };
+
+
+exports.getFeed = (req, res, next) => {
+    res.render('user/feed', {
+        path: '/feed',
+        pageTitle: 'Feed',
+    })
+};
