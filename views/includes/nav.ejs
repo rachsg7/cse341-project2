@@ -8,8 +8,8 @@
             <li class="main__nav_item"><a href="">Add Pictournal</a></li>
         </ul>
         <ul class="main__nav_list">
-            <li class="main__nav_item"><a href="">Sign Up</a></li>
-            <li class="main__nav_item"><a href="">Login</a></li>
+            <li class="main__nav_item"><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
+            <li class="main__nav_item"><a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a></li>
         </ul>
     </nav>
 </header>
@@ -19,7 +19,7 @@
         <li class="mobile-nav__item"><a href="" class="active">Pictournal</a></li>
         <li class="mobile-nav__item"><a href="">Profile</a></li>
         <li class="mobile-nav__item"><a href="">Add Pictournal</a></li>
-        <li class="mobile-nav__item"><a href="">Login</a></li>
-        <li class="mobile-nav__item"><a href="">Signup</a></li>
+        <li class="mobile-nav__item"><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
+        <li class="mobile-nav__item"><a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a></li>
     </ul>
 </nav>

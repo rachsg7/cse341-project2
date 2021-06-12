@@ -1,21 +1,35 @@
-.form-edit {
-    display: flex;
-    flex-direction: column;
-    margin-top: 2em;
-    font-family: 'Montserrat', sans-serif
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
 }
 
-form label {
-    padding: 1em 0 .5em 0;
+.form-control {
+  margin: 1rem 0;
 }
 
-form input,
-form textarea {
-    padding: 1em;
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.25rem;
 }
 
-form textarea {
-    font-family: 'Montserrat', sans-serif;
-    outline: none;
-    resize: none;
+.form-control input,
+.form-control textarea {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 2px;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline-color: $linear-gradient;
+}
+
+.form-control input.invalid,
+.form-control textarea.invalid {
+  border-color: red;
 }
