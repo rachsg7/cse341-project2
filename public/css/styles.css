@@ -9,8 +9,16 @@
 html,
 body {
   margin: 0;
-  font-family: 'Bodoni Moda', serif;
+  font-family: "Bodoni Moda", serif;
   padding-top: 4rem;
+}
+
+form {
+  display: inline;
+}
+
+.centered-link {
+  text-align: center;
 }
 
 .main-header {
@@ -115,7 +123,7 @@ body {
 .mobile-nav__item a.active,
 .mobile-nav__item button:hover,
 .mobile-nav__item button:active {
-  background: #4F518C;
+  background: #4f518c;
   color: white;
   border-radius: 5px;
 }
@@ -181,7 +189,7 @@ body {
 }
 
 p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .centered {
@@ -195,7 +203,7 @@ p {
 
 .user_name {
   font-size: xx-large;
-  font-family: 'Bodoni Moda', sans-serif;
+  font-family: "Bodoni Moda", sans-serif;
 }
 
 .follow_user {
@@ -212,8 +220,8 @@ p {
   text-decoration: none;
   border: 1px solid black;
   border-radius: 5px;
-  padding: .5em;
-  font-family: 'Montserrat', sans-serif;
+  padding: 0.5em;
+  font-family: "Montserrat", sans-serif;
   max-width: 200px;
   margin: 15px 0;
 }
@@ -454,30 +462,39 @@ ul {
   width: 500px;
 }
 
-.form-edit {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  margin-top: 2em;
-  font-family: 'Montserrat', sans-serif;
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
 }
 
-form label {
-  padding: 1em 0 .5em 0;
+.form-control {
+  margin: 1rem 0;
 }
 
-form input,
-form textarea {
-  padding: 1em;
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.25rem;
 }
 
-form textarea {
-  font-family: 'Montserrat', sans-serif;
-  outline: none;
-  resize: none;
+.form-control input,
+.form-control textarea {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 2px;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline-color: linear-gradient(90deg, #ef476f 0%, #ffd166 35%, #118ab2 100%);
+}
+
+.form-control input.invalid,
+.form-control textarea.invalid {
+  border-color: red;
 }
 /*# sourceMappingURL=styles.css.map */
