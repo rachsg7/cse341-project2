@@ -1,0 +1,17 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/nav.ejs') %>
+        <main>
+            <div class="main_width">
+                <form class="form-new-post">
+                    <div class="user_name">Random Name</div>
+                    <label for="post_img">Please Select Your Picture</label>
+                    <input type="file" name="post_img" id="postImage">
+                    <label for="tags">Tags</label>
+                    <input type="text" name="tags">
+                    <label for="post_desc">Description</label>
+                    <textarea name="post_desc" id="post_desc"></textarea>
+                    <button class="btn" type="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

@@ -472,6 +472,18 @@ form {
           flex-direction: column;
 }
 
+.form-new-post {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  margin-left: 10%;
+  margin-right: 10%;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 textarea {
   resize: none;
 }

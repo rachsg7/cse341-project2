@@ -26,3 +26,10 @@ exports.getFeed = (req, res, next) => {
         pageTitle: 'Feed',
     })
 };
+
+exports.newPost = (req, res, next) => {
+    res.render('user/newPost', {
+        path: '/newPost',
+        pageTitle: 'New Post',
+    })
+};
