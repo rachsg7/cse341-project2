@@ -11,8 +11,8 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    // resetToken: String,
-    // resetTokenExpiration: Date,
+    resetToken: String,
+    resetTokenExpiration: Date,
 
     /** Todo: make sure these line up with post model */
     userPosts: {

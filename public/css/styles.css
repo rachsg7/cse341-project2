@@ -9,8 +9,12 @@
 html,
 body {
   margin: 0;
-  font-family: 'Bodoni Moda', serif;
+  font-family: "Bodoni Moda", serif;
   padding-top: 4rem;
+}
+
+.centered-link {
+  text-align: center;
 }
 
 .main-header {
@@ -115,7 +119,7 @@ body {
 .mobile-nav__item a.active,
 .mobile-nav__item button:hover,
 .mobile-nav__item button:active {
-  background: #4F518C;
+  background: #4f518c;
   color: white;
   border-radius: 5px;
 }
@@ -181,7 +185,7 @@ body {
 }
 
 p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .centered {
@@ -190,37 +194,20 @@ p {
 }
 
 .profile_header {
-  margin-top: 2em;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 2fr 1fr;
-      grid-template-columns: 1fr 2fr 1fr;
-  -ms-grid-rows: 1fr 2fr;
-      grid-template-rows: 1fr 2fr;
-  grid-gap: 15px;
-}
-
-.profile_header img {
-  -ms-grid-row: 1;
-      grid-row-start: 1;
-  grid-row-end: 3;
+  margin: 1em;
 }
 
 .user_name {
   font-size: xx-large;
-  font-family: 'Bodoni Moda', sans-serif;
+  font-family: "Bodoni Moda", sans-serif;
 }
 
-.profile_header .user_edit {
-  -ms-grid-column: 3;
-      grid-column-start: 3;
-  grid-column-end: 4;
-}
-
-.profile_header .user_bio {
-  -ms-grid-row: 2;
-      grid-row-start: 2;
-  grid-row-end: 4;
+.follow_user {
+  margin: 1em;
+  padding: 1em;
+  /* box-shadow: 0px 0px 16px black; */
+  border: 1px solid grey;
+  border-radius: 7px;
 }
 
 .btn {
@@ -229,8 +216,8 @@ p {
   text-decoration: none;
   border: 1px solid black;
   border-radius: 5px;
-  padding: .5em;
-  font-family: 'Montserrat', sans-serif;
+  padding: 0.5em;
+  font-family: "Montserrat", sans-serif;
   max-width: 200px;
   margin: 15px 0;
 }
@@ -256,6 +243,57 @@ p {
   }
   .user-message {
     width: 30rem;
+  }
+  .profile_header {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+    -ms-grid-rows: 1fr 2fr;
+        grid-template-rows: 1fr 2fr;
+    grid-gap: 15px;
+    justify-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .profile_header img {
+    -ms-grid-row: 1;
+        grid-row-start: 1;
+    grid-row-end: 3;
+  }
+  .profile_header .user_edit {
+    -ms-grid-column: 3;
+        grid-column-start: 3;
+    grid-column-end: 4;
+  }
+  .profile_header .user_bio {
+    -ms-grid-row: 2;
+        grid-row-start: 2;
+    grid-row-end: 4;
+  }
+  .follow_user {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 4fr;
+        grid-template-columns: 1fr 4fr;
+    -ms-grid-rows: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    grid-gap: 15px;
+    justify-items: center;
+  }
+  .follow_user .profile_img {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    grid-row: 1/3;
+  }
+  .follow_user .user_bio {
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2 / 3;
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
   }
 }
 
@@ -420,6 +458,10 @@ ul {
   width: 500px;
 }
 
+form {
+  display: inline;
+}
+
 .form-edit {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -428,22 +470,57 @@ ul {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-top: 2em;
-  font-family: 'Montserrat', sans-serif;
 }
 
-form label {
-  padding: 1em 0 .5em 0;
+.form-new-post {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  margin-left: 10%;
+  margin-right: 10%;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-form input,
-form textarea {
-  padding: 1em;
-}
-
-form textarea {
-  font-family: 'Montserrat', sans-serif;
-  outline: none;
+textarea {
   resize: none;
+}
+
+.login-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  display: block;
+}
+
+.form-control {
+  margin: 1rem 0;
+}
+
+.form-control label,
+.form-control input,
+.form-control textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.form-control input,
+.form-control textarea {
+  border: 1px solid #a1a1a1;
+  font: inherit;
+  border-radius: 2px;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
+  outline-color: linear-gradient(90deg, #ef476f 0%, #ffd166 35%, #118ab2 100%);
+}
+
+.form-control input.invalid,
+.form-control textarea.invalid {
+  border-color: red;
 }
 /*# sourceMappingURL=styles.css.map */
