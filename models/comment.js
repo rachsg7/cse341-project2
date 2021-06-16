@@ -12,6 +12,10 @@ const commentSchema = new Schema({
         type: String,
         required: true
     },
+    time: {
+        type:Date,
+        required: true
+    },
     likes: {
         type: Number,
         required: true
@@ -23,8 +27,7 @@ const commentSchema = new Schema({
         Comments: [{
             postId: {
                 type: Schema.Types.ObjectId,
-                ref: 'Comment',
-                required: true
+                ref: 'Comment'
             }
         }]
     }
