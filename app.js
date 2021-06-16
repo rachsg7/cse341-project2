@@ -9,10 +9,15 @@
  const bodyParser = require('body-parser');
  const flash = require('connect-flash');
 
- const MONGO_USER = process.env.MONGO_USER;
- const MONGO_PASS = process.env.MONGO_PASS;
+ const MONGO_USER = process.env.DB_USER;
+ const MONGO_PASS = process.env.DB_PASS;
 
- const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/pictournal?retryWrites=true&w=majority"
+ const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/pictournal"
+
+ const store = new mongoDBStore({
+     uri: MONGODB_URL,
+     collection: 'sessions'
+ });
 
  const app = express();
 
