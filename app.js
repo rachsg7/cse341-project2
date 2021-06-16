@@ -12,7 +12,7 @@
  const MONGO_USER = process.env.MONGO_USER;
  const MONGO_PASS = process.env.MONGO_PASS;
 
- const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+ const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/pictournal?retryWrites=true&w=majority"
 
  const app = express();
 
