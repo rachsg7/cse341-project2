@@ -4,9 +4,9 @@
 
  const express = require('express');
  const mongoose = require('mongoose');
+ const session = require('express-session');
  const mongoDBStore = require('connect-mongodb-session')(session);
  const bodyParser = require('body-parser');
- const session = require('express-session');
  const flash = require('connect-flash');
 
  const MONGO_USER = process.env.MONGO_USER;
