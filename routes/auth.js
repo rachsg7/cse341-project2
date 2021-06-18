@@ -13,8 +13,7 @@ router.get('/login', authController.getLogin);
 
 router.get('/signup', authController.getSignup);
 
-router.post('/login',
-    [
+router.post('/login', [
         body('email')
         .isEmail()
         .withMessage('Please enter a valid email address.')
@@ -31,8 +30,7 @@ router.post('/login',
 );
 
 router.post(
-    '/signup',
-    [
+    '/signup', [
         check('email')
         .isEmail()
         .withMessage('Please enter a valid email address.')

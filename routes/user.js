@@ -1,17 +1,17 @@
 const express = require('express');
 
 const router = express.Router();
-
+const isAuth = require('../middleware/is-auth');
 const userController = require('../controllers/user');
 
-router.get('/newPost', userController.newPost);
+router.get('/newPost', isAuth, userController.newPost);
 
-router.get('/profile', userController.getProfile);
+router.get('/profile', isAuth, userController.getProfile);
 
-router.get('/edit-profile', userController.getEditProfile);
+router.get('/edit-profile', isAuth, userController.getEditProfile);
 
-router.get('/following', userController.getFollowing);
+router.get('/following', isAuth, userController.getFollowing);
 
-router.get('/feed', userController.getFeed);
+router.get('/feed', isAuth, userController.getFeed);
 
 module.exports = router;
