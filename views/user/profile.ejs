@@ -13,7 +13,7 @@
                         var min = Math.ceil(1);
                         var max = Math.floor(2000);
                         var random = Math.floor(Math.random() * (max - min) + min); %>
-                            <%= random %>
+                            <%= random.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); %>
                     </a></span>
                 </div>
                 <ul class="gallery">
