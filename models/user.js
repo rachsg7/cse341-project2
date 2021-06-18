@@ -14,7 +14,7 @@ const userSchema = new Schema({
     resetToken: String,
     resetTokenExpiration: Date,
 
-    /** Todo: make sure these line up with post model */
+    /* !! Because posts have the UserId this probably doesn't need to be here actually 
     userPosts: {
         posts: [{
             postId: {
@@ -23,7 +23,7 @@ const userSchema = new Schema({
                 required: true
             } // Anything else to link posts and the user?
         }]
-    },
+    },*/
     following: {
         users: [{
             userId: {
@@ -47,11 +47,19 @@ userSchema.methods.deletePost = function(postId) {
 };
 
 userSchema.methods.follow = function(userId) {
-
+    const userFollows = this.following.users;
+    userFollows.push({
+        userId: userId._id
+            // This may need to just be userId
+    });
 };
 
 userSchema.methods.unfollow = function(userId) {
-
+    const userFollows = this.following.users.filter(user => {
+        return user._id.toString() !== userId.toString();
+    });
+    this.following.users = userFollows;
+    return this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);

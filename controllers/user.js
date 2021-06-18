@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator');
+
 exports.getProfile = (req, res, next) => {
     res.render('user/profile', {
         path: '/profile',
@@ -6,10 +8,29 @@ exports.getProfile = (req, res, next) => {
 };
 
 exports.getEditProfile = (req, res, next) => {
-    res.render('user/edit-profile', {
-        path: '/profile',
-        pageTitle: 'Edit Profile'
-    })
+    // const user_bio = req.body.user_bio;
+    // const user_name = req.body.user_name;
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.render('user/edit-profile', {
+            path: '/profile',
+            pageTitle: 'Edit Profile',
+            validationErrors: errors.array(),
+            // originalInput: {
+            //     user_bio: user_bio,
+            //     user_name: user_name
+            // }
+        })
+    } else {
+        return res.render('user/edit-profile', {
+            path: '/profile',
+            pageTitle: 'Edit Profile',
+            validationErrors: []
+        })
+    }
+
 };
 
 exports.getFollowing = (req, res, next) => {
