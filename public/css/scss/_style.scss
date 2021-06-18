@@ -260,6 +260,15 @@ p {
         grid-row-start: 2;
         grid-row-end: 4;
     }
+    .user_edit_box {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        .user_edit {
+            margin: 5px;
+        }
+    }
     .follow_user {
         display: grid;
         grid-template-columns: 1fr 4fr;
