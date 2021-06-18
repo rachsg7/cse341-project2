@@ -9,7 +9,7 @@ const postSchema = new Schema({
         required: true
     },
     time: {
-        type:Date,
+        type: Date,
         required: true
     },
     image: {
@@ -44,14 +44,5 @@ const postSchema = new Schema({
         }]
     }
 });
-
-/** Todo: fill out functions */
-userSchema.methods.addComment = function(post) {
-
-};
-
-userSchema.methods.deleteComment = function(postId) {
-
-};
 
 module.exports = mongoose.model('Post', postSchema);

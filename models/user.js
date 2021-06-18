@@ -46,6 +46,15 @@ userSchema.methods.deletePost = function(postId) {
 
 };
 
+/** Todo: fill out functions */
+userSchema.methods.addComment = function(post) {
+
+};
+
+userSchema.methods.deleteComment = function(postId) {
+
+};
+
 userSchema.methods.follow = function(userId) {
     const userFollows = this.following.users;
     userFollows.push({
