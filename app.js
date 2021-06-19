@@ -15,8 +15,8 @@
  const MONGODB_URL = "mongodb+srv://" + MONGO_USER + ":" + MONGO_PASS + "@cluster0.2scof.mongodb.net/pictournal"
 
  const store = new mongoDBStore({
-     uri: MONGODB_URL,
-     collection: 'sessions'
+   uri: MONGODB_URL,
+   collection: 'sessions'
  });
 
  const app = express();
@@ -28,26 +28,34 @@
  const userRouter = require('./routes/user');
  const authRouter = require('./routes/auth');
 
- app.use(bodyParser.urlencoded({ extended: false }));
+ app.use(bodyParser.urlencoded({
+   extended: false
+ }));
  app.use(express.static(path.join(__dirname, 'public')));
  app.use(
-     session({
-         secret: 'my secret',
-         resave: false,
-         saveUninitialized: false,
-     })
+   session({
+     secret: 'my secret',
+     resave: false,
+     saveUninitialized: false,
+   })
  );
+
  app.use(flash());
+
+ app.use((req, res, next) => {
+   res.locals.isAuthenticated = req.session.isLoggedIn;
+   next();
+ });
 
  app.use(mainRouter);
  app.use(userRouter);
  app.use(authRouter);
 
  mongoose
-     .connect(MONGODB_URL)
-     .then(result => {
-         app.listen(PORT);
-     })
-     .catch(err => {
-         console.log(err);
-     });
+   .connect(MONGODB_URL)
+   .then(result => {
+     app.listen(PORT);
+   })
+   .catch(err => {
+     console.log(err);
+   });

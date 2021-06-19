@@ -8,8 +8,17 @@
             <li class="main__nav_item"><a href="/newPost" class="<%= path === '/newPost' ? 'active' : '' %>">Add Pictournal</a></li>
         </ul>
         <ul class="main__nav_list">
-            <li class="main__nav_item"><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
-            <li class="main__nav_item"><a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a></li>
+            <% if (!isAuthenticated) { %>
+                <li class="main__nav_item"><a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a></li>
+                <li class="main__nav_item"><a class="<%= path === '/signup' ? 'active' : '' %>" href="/signup">Signup</a></li>
+            <% } else { %>
+                <li class="main__nav_item">
+                    <a class="<%= path === '/logout' ? 'active' : '' %>" href="/logout">Logout</a></li>
+                    <!-- <form action="/logout" method="post">
+                        <button class="btn" type="submit">Logout</button>
+                    </form>
+                </li> -->
+            <% } %>
         </ul>
     </nav>
 </header>
