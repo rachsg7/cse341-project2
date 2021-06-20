@@ -1,4 +1,5 @@
 const express = require('express');
+const { body } = require('express-validator/check');
 
 const router = express.Router();
 const isAuth = require('../middleware/is-auth');
@@ -8,7 +9,19 @@ router.get('/newPost', isAuth, userController.newPost);
 
 router.get('/profile', isAuth, userController.getProfile);
 
-router.get('/edit-profile', isAuth, userController.getEditProfile);
+router.get('/profile/:userId', isAuth, userController.getProfile);
+
+router.get('/edit-profile', isAuth, [
+    body('user_name')
+    .isString()
+    .isLength({ min: 3 })
+    .trim(),
+    body('user_bio')
+    .isLength({ min: 5, max: 400 })
+    .trim()
+], userController.getEditProfile);
+
+router.post('/edit-profile', isAuth, userController.postEditProfile);
 
 router.get('/following', isAuth, userController.getFollowing);
 

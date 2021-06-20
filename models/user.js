@@ -11,6 +11,18 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    name: {
+        type: String,
+        required: false
+    },
+    bio: {
+        type: String,
+        required: false
+    },
+    profileImgUrl: {
+        type: String,
+        required: false
+    },
     resetToken: String,
     resetTokenExpiration: Date,
 

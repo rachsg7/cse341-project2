@@ -2,12 +2,18 @@
     <%- include('../includes/nav.ejs') %>
         <main>
             <div class="main_width">
-                <form class="form-edit" action="edit-profile">
-                    <div class="user_name">Random Name</div>
+                <form class="form-edit" action="/edit-profile" method="POST" enctype="multipart/form-data">
+                    <label for="user_name">Your Name</label>
+                    <input class="<%= validationErrors.find(e => e.param === 'username') ? 'invalid' : '' %>" name="user_name" id="user_name" value="<%= user.name %>">
+
                     <label for="profile_img">Edit Profile Picture</label>
-                    <input class="<%= validationErrors.find(e => e.param === 'userImage') ? 'invalid' : '' %>" type="file" name="profile_img" id="userImage">
+                    <input type="file" name="image" id="image">
+
                     <label for="user_bio">Edit Bio</label>
-                    <textarea class="<%= validationErrors.find(e => e.param === 'user_bio') ? 'invalid' : '' %>" name="user_bio" id="user_bio"></textarea>
+                    <textarea class="<%= validationErrors.find(e => e.param === 'user_bio') ? 'invalid' : '' %>" name="user_bio" id="user_bio"><%= user.bio %></textarea>
+
+                    <input type="hidden" value="<%= user._id %>" name="userId" id="userId">
+
                     <button class="btn" type="submit">Submit</button>
                 </form>
             </div>
