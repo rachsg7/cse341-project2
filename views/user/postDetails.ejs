@@ -1,0 +1,31 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/nav.ejs') %>
+        <main>
+            <div class="main_width">
+                <div class="feed">
+                    <div class="post_upper">
+                        <p><%= author.name %></p>
+                        <p><%= post.time %></p>
+                    </div>
+                    <img src="/<%= post.image %>">
+                    <div class="feed_lower">
+                        <div class="icon__left">
+                            <a href="../like/<%= post._id %>"><i class="far fa-heart fa-2x"></i></a>
+                            <a href="../comment/<%= post._id %>"><i class="far fa-comment fa-2x"></i></a>
+                            <i class="far fa-share-square fa-2x"></i>
+                        </div>
+                        <span class="icon__text">&nbsp;
+                            <% if(!post.likes){ %>
+                                Likes: 0
+                            <% } else{ %>
+                            Likes: <%= post.likes %>
+                            <% } %>
+                </span>
+                        <div class="icon__right">
+                            <i class="far fa-bookmark fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

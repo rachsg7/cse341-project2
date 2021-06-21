@@ -5,7 +5,11 @@ const router = express.Router();
 const isAuth = require('../middleware/is-auth');
 const userController = require('../controllers/user');
 
+router.post('/newPost', isAuth, userController.postNewPost);
+
 router.get('/newPost', isAuth, userController.newPost);
+
+router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
 router.get('/profile', isAuth, userController.getProfile);
 

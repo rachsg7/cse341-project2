@@ -76,5 +76,6 @@ typings/
 # FuseBox cache
 .fusebox/
 
+#ingnore local variables
 env.staging
 .env
