@@ -25,6 +25,10 @@ router.post('/edit-profile', isAuth, userController.postEditProfile);
 
 router.get('/following', isAuth, userController.getFollowing);
 
+router.post('/follow', isAuth, userController.postFollow);
+
+router.post('/unfollow', isAuth, userController.postUnfollow);
+
 router.get('/feed', isAuth, userController.getFeed);
 
 module.exports = router;

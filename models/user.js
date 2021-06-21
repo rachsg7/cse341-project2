@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { update } = require('../../00-starting-setup/00-starting-setup/models/user');
 
 const Schema = mongoose.Schema;
 
@@ -67,17 +68,34 @@ userSchema.methods.deleteComment = function(postId) {
 
 };
 
-userSchema.methods.follow = function(userId) {
-    const userFollows = this.following.users;
+userSchema.methods.follow = function(user) {
+    const userFollows = [...this.following.users];
     userFollows.push({
-        userId: userId._id
-            // This may need to just be userId
+        userId: user._id
     });
+    const updatedFollows = {
+        users: userFollows
+    };
+    this.following = updatedFollows;
+    return this.save();
+};
+
+userSchema.methods.isFollowing = function(userId) {
+    const updatedUsers = this.following.users.filter(user => {
+        return user.userId.toString() == userId.toString();
+    });
+    let isFollowing;
+    if (updatedUsers.length >= 1) {
+        isFollowing = true;
+    } else {
+        isFollowing = false;
+    }
+    return isFollowing;
 };
 
 userSchema.methods.unfollow = function(userId) {
     const userFollows = this.following.users.filter(user => {
-        return user._id.toString() !== userId.toString();
+        return user._id.toString() == userId.toString();
     });
     this.following.users = userFollows;
     return this.save();

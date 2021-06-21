@@ -10,11 +10,25 @@
                     <% if(canEdit) { %>
                         <span class="user_edit_box"><a class="btn user_edit" href="/edit-profile">Edit Profile</a>
                         <a class="btn user_edit" href="/feed">My Feed</a></span>
-                        <% } %>
-                            <p class="user_bio">
-                                <%= profileUser.bio %>
-                            </p>
-                            <span><a href="/following" class="link"><strong>Following: </strong>
+                        <% } else { %>
+                            <span class="user_edit_box">
+                                <% if(!isFollowing) { %>
+                                <form action="/follow" method="post">
+                                    <button class="btn" type="submit">Follow</button>
+                                    <input type="hidden" name="userId" value="<%= profileUser._id %>">
+                                </form>
+                                <% } else { %>
+                                    <form action="/unfollow" method="post">
+                                        <button class="btn" type="submit">Unfollow</button>
+                                        <input type="hidden" name="userId" value="<%= profileUser._id %>">
+                                    </form>
+                                    <% } %>
+                            </span>
+                            <% } %>
+                                <p class="user_bio">
+                                    <%= profileUser.bio %>
+                                </p>
+                                <span><a href="/following" class="link"><strong>Following: </strong>
                         <%= following %>
                     </a></span>
                 </div>

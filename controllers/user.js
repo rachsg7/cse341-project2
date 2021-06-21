@@ -25,6 +25,7 @@ const fileHelper = require('../util/file');
 
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
+    const isFollowing = req.user.isFollowing(visiting);
 
     User.findById(visiting)
         .then(user => {
@@ -41,7 +42,8 @@ exports.getProfile = (req, res, next) => {
                     following: following,
                     user: user,
                     profileUser: user,
-                    canEdit: true
+                    canEdit: true,
+                    isFollowing: isFollowing
                 });
             }
             // If the user does not own the profile, they cannot edit
@@ -53,7 +55,8 @@ exports.getProfile = (req, res, next) => {
                 following: following,
                 user: mainUser,
                 profileUser: user,
-                canEdit: false
+                canEdit: false,
+                isFollowing: isFollowing
             })
         })
 };
@@ -127,6 +130,27 @@ exports.getFollowing = (req, res, next) => {
     })
 };
 
+exports.postFollow = (req, res, next) => {
+    const userId = req.body.userId;
+    User.findById(userId)
+        .then(userToFollow => {
+            return req.user.follow(userToFollow);
+        })
+        .then(result => {
+            res.redirect('/profile/' + userId);
+        })
+};
+
+exports.postUnfollow = (req, res, next) => {
+    const userId = req.body.userId;
+    User.findById(userId)
+        .then(userToUnfollow => {
+            return req.user.unfollow(userToUnfollow);
+        })
+        .then(result => {
+            res.redirect('/profile/' + userId);
+        })
+};
 
 exports.getFeed = (req, res, next) => {
     res.render('user/feed', {
