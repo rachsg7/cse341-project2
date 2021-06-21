@@ -114,7 +114,7 @@ exports.postEditProfile = (req, res, next) => {
             }
             return user.save()
                 .then(result => {
-                    res.redirect('/profile');
+                    res.redirect('/profile/' + user._id);
                 });
         });
 };
