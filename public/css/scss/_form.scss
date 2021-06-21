@@ -2,9 +2,24 @@ form {
     display: inline;
 }
 
-.form-edit {
+.form-edit,
+.form-new-post {
     display: flex;
     flex-direction: column;
+    margin: 1em;
+}
+
+.form-edit label,
+.form-new-post label {
+    padding: 1em 0 .5em 0;
+}
+
+.form-edit input,
+.form-edit textarea,
+.form-new-post input,
+.form-new-post textarea {
+    padding: .5em;
+    font-family: 'Montserrat';
 }
 
 textarea {

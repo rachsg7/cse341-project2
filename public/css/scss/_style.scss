@@ -242,11 +242,10 @@ p {
     }
     .profile_header {
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr;
         grid-template-rows: 1fr 2fr;
         grid-gap: 15px;
         justify-items: center;
-        align-items: center;
     }
     .profile_header img {
         grid-row-start: 1;
@@ -265,6 +264,7 @@ p {
         display: flex;
         flex-direction: column;
         align-content: center;
+        grid-column: 1/2;
         .user_edit {
             margin: 5px;
         }

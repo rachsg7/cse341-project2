@@ -247,15 +247,12 @@ p {
   .profile_header {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 1fr 2fr 1fr;
-        grid-template-columns: 1fr 2fr 1fr;
+    -ms-grid-columns: 1fr 2fr;
+        grid-template-columns: 1fr 2fr;
     -ms-grid-rows: 1fr 2fr;
         grid-template-rows: 1fr 2fr;
     grid-gap: 15px;
     justify-items: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
   }
   .profile_header img {
     -ms-grid-row: 1;
@@ -283,6 +280,9 @@ p {
             flex-direction: column;
     -ms-flex-line-pack: center;
         align-content: center;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1/2;
   }
   .user_edit_box .user_edit {
     margin: 5px;
@@ -479,7 +479,8 @@ form {
   display: inline;
 }
 
-.form-edit {
+.form-edit,
+.form-new-post {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -487,6 +488,20 @@ form {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  margin: 1em;
+}
+
+.form-edit label,
+.form-new-post label {
+  padding: 1em 0 .5em 0;
+}
+
+.form-edit input,
+.form-edit textarea,
+.form-new-post input,
+.form-new-post textarea {
+  padding: .5em;
+  font-family: 'Montserrat';
 }
 
 textarea {
