@@ -2,25 +2,60 @@ const { validationResult } = require('express-validator');
 const User = require('../models/user');
 const fileHelper = require('../util/file');
 
-exports.getProfile = (req, res, next) => {
-    const user = req.user;
-    console.log(user);
-    let username;
-    if (!user.name) {
-        username = user.email;
-    } else {
-        username = user.name;
-    }
-    const following = req.user.following.users.length;
+// exports.getProfile = (req, res, next) => {
+//     const user = req.user;
+//     console.log(user);
+//     let username;
+//     if (!user.name) {
+//         username = user.email;
+//     } else {
+//         username = user.name;
+//     }
+//     const following = req.user.following.users.length;
 
-    res.render('user/profile', {
-        path: '/profile',
-        pageTitle: 'Pictournal || Profile',
-        username: username, // Change to user name
-        posts: user.posts,
-        following: following,
-        user: user
-    });
+//     res.render('user/profile', {
+//         path: '/profile',
+//         pageTitle: 'Pictournal || Profile',
+//         username: username,
+//         posts: user.posts,
+//         following: following,
+//         user: user
+//     });
+// };
+
+exports.getProfile = (req, res, next) => {
+    const visiting = req.params.userId;
+
+    User.findById(visiting)
+        .then(user => {
+            const mainUser = req.user;
+            const username = user.name;
+            const following = user.following.users.length;
+            // If the user is the owner of the Profile, they are allowed to edit
+            if (mainUser._id.toString() == visiting.toString()) {
+                return res.render('user/profile', {
+                    path: '/profile',
+                    pageTitle: 'Pictournal || Profile',
+                    username: username,
+                    posts: user.posts,
+                    following: following,
+                    user: user,
+                    profileUser: user,
+                    canEdit: true
+                });
+            }
+            // If the user does not own the profile, they cannot edit
+            return res.render('user/profile', {
+                path: '/profile',
+                pageTitle: 'Pictournal || Profile',
+                username: username,
+                posts: user.posts,
+                following: following,
+                user: mainUser,
+                profileUser: user,
+                canEdit: false
+            })
+        })
 };
 
 exports.getEditProfile = (req, res, next) => {
@@ -87,7 +122,8 @@ exports.postEditProfile = (req, res, next) => {
 exports.getFollowing = (req, res, next) => {
     res.render('user/follow-list', {
         path: '/profile',
-        pageTitle: 'Following'
+        pageTitle: 'Following',
+        user: req.user
     })
 };
 
@@ -96,6 +132,7 @@ exports.getFeed = (req, res, next) => {
     res.render('user/feed', {
         path: '/feed',
         pageTitle: 'Feed',
+        user: req.user
     })
 };
 
@@ -103,5 +140,6 @@ exports.newPost = (req, res, next) => {
     res.render('user/newPost', {
         path: '/newPost',
         pageTitle: 'New Post',
+        user: req.user
     })
 };

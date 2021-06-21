@@ -3,16 +3,18 @@
         <main>
             <div class="main_width">
                 <div class="profile_header">
-                    <img class="profile_img" src="<%= user.profileImgUrl %>">
+                    <img class="profile_img" src="/<%= profileUser.profileImgUrl %>">
                     <div class="user_name">
                         <%= username %>
                     </div>
-                    <span class="user_edit_box"><a class="btn user_edit" href="/edit-profile">Edit Profile</a>
+                    <% if(canEdit) { %>
+                        <span class="user_edit_box"><a class="btn user_edit" href="/edit-profile">Edit Profile</a>
                         <a class="btn user_edit" href="/feed">My Feed</a></span>
-                    <p class="user_bio">
-                        <%= user.bio %>
-                    </p>
-                    <span><a href="/following" class="link"><strong>Following: </strong>
+                        <% } %>
+                            <p class="user_bio">
+                                <%= profileUser.bio %>
+                            </p>
+                            <span><a href="/following" class="link"><strong>Following: </strong>
                         <%= following %>
                     </a></span>
                 </div>
@@ -23,11 +25,13 @@
                         var h = Math.floor(Math.random() * (5 - 2) + 2)*100;%>
                         <li><a href="#<%= i %>"><img src="https://source.unsplash.com/random/<%= w %>x<%= h %>?sig=<%= i %>" loading="lazy"></a></li>
                         <% } %> -->
-                    <% if(!posts) { %>
+                    <% if(!posts && canEdit) { %>
                         <h1>Nothing to See! Add a Post?</h1>
-                        <% } else { %>
-                            <h1>There are posts here.</h1>
-                            <% } %>
+                        <% } else if(!posts) { %>
+                            <h1>Nothing to see here.</h1>
+                            <% } else { %>
+                                <h1>There are posts here.</h1>
+                                <% } %>
                 </ul>
             </div>
         </main>

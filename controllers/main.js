@@ -6,7 +6,8 @@ exports.getIndex = (req, res, next) => {
             res.render('index', {
                 posts: posts,
                 pageTitle: 'Welcome to Pictournal',
-                path: '/'
+                path: '/',
+                user: req.user
             });
         })
         .catch(err => {
