@@ -256,6 +256,8 @@ exports.postDetails = (req, res, next) => {
     });
 };
 
+// RANDOM USER CONTENT
+
 exports.randomUser = (req, res, next) => {
     let settings = { method: "Get" };
     var object = [];
@@ -295,8 +297,5 @@ exports.randomProfileImage = (req, res, next) => {
     const url = 'https://thispersondoesnotexist.com/image'
     const path = './images/' + Date.now() + '.jpg'
 
-    download(url, path, () => {
-        console.log('✅ Done!')
-    })
     return path;
 }

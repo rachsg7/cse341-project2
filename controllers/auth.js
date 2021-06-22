@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
+const userCtrl = require('../controllers/user');
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
@@ -127,9 +128,6 @@ exports.postSignup = (req, res, next) => {
             const user = new User({
                 email: email,
                 password: hashedPassword,
-                cart: {
-                    items: []
-                }
             });
             return user.save();
         })
@@ -143,31 +141,6 @@ exports.postSignup = (req, res, next) => {
         });
 };
 
-exports.randomUsers = (req, res, next) => {
-    var password = 'ranuser'
-    userData = User.randomUser();
-    console.log(userData);
-    bcrypt
-        .hash(password, 12)
-        .then(hashedPassword => {
-            const user = new User({
-                email: email,
-                password: hashedPassword,
-                cart: {
-                    items: []
-                }
-            });
-            return user.save();
-        })
-        .then(result => {
-            res.redirect('/login');
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-        });
-};
 
 exports.postLogout = (req, res, next) => {
     req.session.destroy(() => {
@@ -282,3 +255,25 @@ exports.postNewPassword = (req, res, next) => {
             return next(error);
         });
 };
+
+exports.generateFakeUsers = (req, res, next) => {
+    var ranuser = userCtrl.randomUser();
+    var password = 'test';
+    bcrypt
+        .hash(password, 12)
+        .then(hashedPassword => {
+            const user = new User({
+                email: userCtrl.randomEmail(ranuser),
+                password: hashedPassword,
+                name: ranuser.name,
+                bio: userCtrl.randomBio(ranuser),
+                profileImgUrl: userCtrl.randomProfileImage(ranuser),
+            });
+            return user.save();
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+}
