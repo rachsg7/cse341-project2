@@ -11,6 +11,7 @@
  const multer = require('multer');
 
  const User = require('./models/user');
+ const userCtrl = require('./controllers/user');
  const errorController = require('./controllers/error');
 
  const MONGO_USER = process.env.DB_USER;

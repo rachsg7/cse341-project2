@@ -100,4 +100,6 @@ userSchema.methods.unfollow = function(userId) {
     return this.save();
 };
 
+
+
 module.exports = mongoose.model('User', userSchema);

@@ -143,6 +143,32 @@ exports.postSignup = (req, res, next) => {
         });
 };
 
+exports.randomUsers = (req, res, next) => {
+    var password = 'ranuser'
+    userData = User.randomUser();
+    console.log(userData);
+    bcrypt
+        .hash(password, 12)
+        .then(hashedPassword => {
+            const user = new User({
+                email: email,
+                password: hashedPassword,
+                cart: {
+                    items: []
+                }
+            });
+            return user.save();
+        })
+        .then(result => {
+            res.redirect('/login');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+};
+
 exports.postLogout = (req, res, next) => {
     req.session.destroy(() => {
         res.redirect('/');

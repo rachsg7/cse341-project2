@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const User = require('../models/user');
 const Post = require('../models/post');
+const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
 
 // exports.getProfile = (req, res, next) => {
@@ -252,3 +253,48 @@ exports.postDetails = (req, res, next) => {
         });
     });
 };
+
+exports.randomUser = (req, res, next) => {
+    let settings = { method: "Get" };
+    var object = [];
+    fetch('https://api.namefake.com/', settings)
+        .then(res => res.json())
+        .then((json) => {
+            object = JSON.parse(JSON.stringify(json));
+            console.log(object.name);
+            return object;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
+exports.randomEmail = (req, res, next) => {
+    return req.email_u + "@" + email_u;
+}
+
+exports.randomBio = (req, res, next) => {
+    var bio = "Hi, my name is " + req.name + " and I love to play " + req.sport;
+    return bio;
+}
+
+exports.randomProfileImage = (req, res, next) => {
+    const fs = require('fs')
+    const request = require('request')
+
+    const download = (url, path, callback) => {
+        request.head(url, (err, res, body) => {
+            request(url)
+                .pipe(fs.createWriteStream(path))
+                .on('close', callback)
+        })
+    }
+
+    const url = 'https://thispersondoesnotexist.com/image'
+    const path = './images/' + Date.now() + '.jpg'
+
+    download(url, path, () => {
+        console.log('✅ Done!')
+    })
+    return path;
+}
