@@ -29,6 +29,8 @@ exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);
 
+    // console.log(req.user.following);
+
     User.findById(visiting)
         .then(user => {
             const mainUser = req.user;
