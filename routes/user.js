@@ -27,7 +27,7 @@ router.get('/edit-profile', isAuth, [
 
 router.post('/edit-profile', isAuth, userController.postEditProfile);
 
-router.get('/following', isAuth, userController.getFollowing);
+router.get('/following/:userId', isAuth, userController.getFollowing);
 
 router.post('/follow', isAuth, userController.postFollow);
 

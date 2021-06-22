@@ -197,9 +197,12 @@ p {
   margin: 1em;
 }
 
-.user_name {
+.user_name,
+.user_name a {
   font-size: xx-large;
   font-family: "Bodoni Moda", sans-serif;
+  text-decoration: none;
+  color: black;
 }
 
 .follow_user {
@@ -448,9 +451,6 @@ ul {
   top: -55px;
   height: 50px;
   padding: 10px;
-  color: white;
-}
-.feed_lower a{
   color: white;
 }
 

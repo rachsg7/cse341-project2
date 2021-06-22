@@ -28,7 +28,7 @@
                                 <p class="user_bio">
                                     <%= profileUser.bio %>
                                 </p>
-                                <span><a href="/following" class="link"><strong>Following: </strong>
+                                <span><a href="/following/<%= profileUser._id %>" class="link"><strong>Following: </strong>
                         <%= following %>
                     </a></span>
                 </div>
@@ -44,16 +44,13 @@
                         <% } else if(!posts) { %>
                             <h1>Nothing to see here.</h1>
                             <% } else { %>
-                                <div>
-                                    <h1>There are posts here.</h1>
-                                </div>
 
                                 <div class="feed">
                                     <% for (post of posts){  %>
                                         <a href="../../postDetails/<%= post._id %>"><img class="posts_img" src="/<%= post.image %>"></a>
-                                    <% } %>  
+                                        <% } %>
                                 </div>
-                            <% } %>
+                                <% } %>
                 </ul>
             </div>
         </main>

@@ -35,7 +35,7 @@ exports.getProfile = (req, res, next) => {
             const id = mainUser._id;
             const following = user.following.users.length;
             //find post for user
-            Post.find({userId: visiting}).then(posts => {
+            Post.find({ userId: visiting }).then(posts => {
                 // If the user is the owner of the Profile, they are allowed to edit
                 if (mainUser._id.toString() == visiting.toString()) {
                     return res.render('user/profile', {
@@ -63,6 +63,9 @@ exports.getProfile = (req, res, next) => {
                     isFollowing: isFollowing
                 })
             });
+        })
+        .catch(err => {
+            res.redirect('/404');
         })
 };
 
@@ -128,11 +131,34 @@ exports.postEditProfile = (req, res, next) => {
 };
 
 exports.getFollowing = (req, res, next) => {
-    res.render('user/follow-list', {
-        path: '/profile',
-        pageTitle: 'Following',
-        user: req.user
-    })
+    const userFollows = req.params.userId;
+
+    User.findById(userFollows)
+        .then(user => {
+            user
+                .populate('following.users.userId')
+                .execPopulate()
+                .then(user => {
+                    const following = user.following.users;
+                    res.render('user/follow-list', {
+                        path: '/profile',
+                        pageTitle: 'Following',
+                        user: req.user,
+                        following: following,
+                        profileUser: user
+                    })
+                })
+                .catch(err => {
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    return next(error);
+                })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 };
 
 exports.postFollow = (req, res, next) => {
@@ -144,6 +170,11 @@ exports.postFollow = (req, res, next) => {
         .then(result => {
             res.redirect('/profile/' + userId);
         })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 };
 
 exports.postUnfollow = (req, res, next) => {
@@ -154,6 +185,11 @@ exports.postUnfollow = (req, res, next) => {
         })
         .then(result => {
             res.redirect('/profile/' + userId);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         })
 };
 
@@ -187,15 +223,18 @@ exports.postNewPost = (req, res, next) => {
         image: image.path,
         tags: tags,
         description: description,
-        privacy, privacy
+        privacy,
+        privacy
     });
     post.save()
-    .then(result => {
-        res.redirect('/feed');
-    })
-    .catch(err => {
-        console.log(err);
-    });
+        .then(result => {
+            res.redirect('/feed');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 
 };
 
