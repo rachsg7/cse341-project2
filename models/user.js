@@ -94,8 +94,11 @@ userSchema.methods.isFollowing = function(userId) {
 
 userSchema.methods.unfollow = function(userId) {
     const userFollows = this.following.users.filter(user => {
-        return user._id.toString() == userId.toString();
+        // console.log('user._id: ' + user.userId._id);
+        // console.log('userId: ' + userId._id);
+        return user.userId._id.toString() !== userId._id.toString();
     });
+    // console.log('User Follows: ' + userFollows);
     this.following.users = userFollows;
     return this.save();
 };
