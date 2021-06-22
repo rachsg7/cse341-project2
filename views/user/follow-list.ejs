@@ -2,14 +2,31 @@
     <%- include('../includes/nav.ejs') %>
         <main>
             <div class="main_width">
-                <% for(let i=0; i < 15; i++) { %>
-                    <article class="follow_user">
-                        <img class="profile_img" src="https://source.unsplash.com/random/200x200">
-                        <div class="user_name">Random Name</div>
-                        <p class="user_bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed facilisis purus eu lacus sodales maximus. Integer ornare iaculis ipsum id scelerisque. Aliquam erat volutpat. Aliquam non tempus est. Mauris euismod leo ac lorem tristique
-                            molestie. Nunc eu dapibus arcu. Quisque eleifend magna ut erat volutpat aliquam. Suspendisse potenti. Pellentesque consectetur.</p>
-                    </article>
-                    <% } %>
+                <% if(following.length > 0) { %>
+                    <% following.forEach(u => { %>
+                        <article class="follow_user">
+                            <a class="profile_img" href="/profile/<%= u.userId._id %>">
+                                    <img class="profile_img" src="/<%= u.userId.profileImgUrl%>">
+                                </a>
+                            <div class="user_name">
+                                <a href="/profile/<%= u.userId._id %>">
+                                    <%= u.userId.name %>
+                                </a>
+                            </div>
+                            <p class="user_bio">
+                                <%= u.userId.bio %>
+                            </p>
+                            <span><a href="/following/<%= u.userId._id %>" class="link"><strong>Following: </strong>
+                                    <%= u.userId.following.users.length %>
+                                </a></span>
+                        </article>
+                        <% }) %>
+                            <% } else { %>
+                                <h1>
+                                    <a class="user_name" href="/profile/<%= profileUser._id %>">
+                                        <%= profileUser.name %>
+                                    </a>is not following anyone yet!</h1>
+                                <% } %>
             </div>
         </main>
         <%- include('../includes/end.ejs') %>

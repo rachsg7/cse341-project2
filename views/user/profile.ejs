@@ -28,7 +28,7 @@
                                 <p class="user_bio">
                                     <%= profileUser.bio %>
                                 </p>
-                                <span><a href="/following" class="link"><strong>Following: </strong>
+                                <span><a href="/following/<%= profileUser._id %>" class="link"><strong>Following: </strong>
                         <%= following %>
                     </a></span>
                 </div>
@@ -39,12 +39,17 @@
                         var h = Math.floor(Math.random() * (5 - 2) + 2)*100;%>
                         <li><a href="#<%= i %>"><img src="https://source.unsplash.com/random/<%= w %>x<%= h %>?sig=<%= i %>" loading="lazy"></a></li>
                         <% } %> -->
-                    <% if(!posts && canEdit) { %>
+                    <%if(!posts && canEdit) { %>
                         <h1>Nothing to See! Add a Post?</h1>
                         <% } else if(!posts) { %>
                             <h1>Nothing to see here.</h1>
                             <% } else { %>
-                                <h1>There are posts here.</h1>
+
+                                <div class="feed">
+                                    <% for (post of posts){  %>
+                                        <a href="../../postDetails/<%= post._id %>"><img class="posts_img" src="/<%= post.image %>"></a>
+                                        <% } %>
+                                </div>
                                 <% } %>
                 </ul>
             </div>

@@ -11,6 +11,7 @@
  const multer = require('multer');
 
  const User = require('./models/user');
+ const errorController = require('./controllers/error');
 
  const MONGO_USER = process.env.DB_USER;
  const MONGO_PASS = process.env.DB_PASS;
@@ -83,7 +84,9 @@
              next();
          })
          .catch(err => {
-             console.log(err);
+             const error = new Error(err);
+             error.httpStatusCode = 500;
+             return next(error);
          });
  });
 
@@ -91,10 +94,18 @@
  app.use(userRouter);
  app.use(authRouter);
 
- // Logging the rejected field from multer error
- //  app.use((error, req, res, next) => {
- //      console.log('This is the rejected field ->', error.field);
- //  });
+ app.get('/500', errorController.get500);
+
+ app.use(errorController.get404);
+
+ app.use((error, req, res, next) => {
+     res.status(500).render('500', {
+         pageTitle: 'An Error Occurred',
+         path: '/500',
+         isAuthenticated: req.session.isLoggedIn,
+         user: req.user
+     });
+ });
 
  mongoose
      .connect(MONGODB_URL)
@@ -102,5 +113,7 @@
          app.listen(PORT);
      })
      .catch(err => {
-         console.log(err);
+         const error = new Error(err);
+         error.httpStatusCode = 500;
+         return next(error);
      });

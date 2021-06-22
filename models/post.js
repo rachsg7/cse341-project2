@@ -24,8 +24,7 @@ const postSchema = new Schema({
         required: true
     },
     likes: {
-        type: Number,
-        required: true
+        type: Number
     },
     privacy: {
         type: String,
@@ -38,8 +37,7 @@ const postSchema = new Schema({
         Comments: [{
             postId: {
                 type: Schema.Types.ObjectId,
-                ref: 'Comment',
-                required: true
+                ref: 'Comment'
             }
         }]
     }
