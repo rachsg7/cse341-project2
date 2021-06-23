@@ -454,6 +454,10 @@ ul {
   color: white;
 }
 
+.feed_lower a{
+  color: white;
+}
+
 .icon_ {
   position: absolute;
   top: -30px;
