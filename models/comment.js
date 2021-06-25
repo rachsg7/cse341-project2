@@ -8,38 +8,28 @@ const commentSchema = new Schema({
         ref: 'User',
         required: true
     },
-    description: {
-        type: String,
+    postId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Post',
         required: true
+    },
+    commentId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    },
+    isLike: {
+        type: Boolean,
+        required: true
+    },
+    description: {
+        type: String
     },
     time: {
         type:Date,
         required: true
-    },
-    likes: {
-        type: Number,
-        required: true
-    },
-
-
-    /** can a user comment on a comment*/
-    postComments: {
-        Comments: [{
-            postId: {
-                type: Schema.Types.ObjectId,
-                ref: 'Comment'
-            }
-        }]
     }
 });
 
 /** Todo: fill out functions */
-userSchema.methods.addComment = function(post) {
-
-};
-
-userSchema.methods.deleteComment = function(postId) {
-
-};
 
 module.exports = mongoose.model('Comment', commentSchema);

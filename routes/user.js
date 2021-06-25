@@ -11,6 +11,10 @@ router.get('/newPost', isAuth, userController.newPost);
 
 router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
+router.get('/like/:postId', isAuth, userController.likePost);
+
+router.get('/comment/:postId', isAuth, userController.newComment);
+
 router.get('/profile', isAuth, userController.getProfile);
 
 router.get('/profile/:userId', isAuth, userController.getProfile);

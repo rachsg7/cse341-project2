@@ -1,8 +1,10 @@
 const { validationResult } = require('express-validator');
 const User = require('../models/user');
 const Post = require('../models/post');
+const Comment = require('../models/comment');
 const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
+const user = require('../models/user');
 
 // exports.getProfile = (req, res, next) => {
 //     const user = req.user;
@@ -243,6 +245,29 @@ exports.postNewPost = (req, res, next) => {
 
 exports.postDetails = (req, res, next) => {
     const id = req.params.postId;
+    let comments = [];
+    let likes = 0;
+    let liked = false;
+
+    Comment.find({postId: id})
+    .then(postComments => {
+        for(let i = 0; i < postComments.length; i++){
+            if(postComments[i].isLike){
+                likes += 1;
+                if(postComments[i].userId = req.user._id){
+                    liked = true;
+                }
+            }else{
+                comments.push(postComments[i])
+            }
+        }
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    })
+
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {
             res.render('user/postDetails', {
@@ -250,7 +275,10 @@ exports.postDetails = (req, res, next) => {
                 pageTitle: 'Post Details',
                 user: req.user,
                 author: author,
-                post: post
+                post: post,
+                comments: comments,
+                likes: likes,
+                userLiked: liked
             })
         });
     });
@@ -299,3 +327,45 @@ exports.randomProfileImage = (req, res, next) => {
 
     return path;
 }
+
+exports.likePost = (req, res, next) => {
+    const postId = req.params.postId;
+    const user = req.user._id;
+    const comment = new Comment({
+        userId: user,
+        postId: postId,
+        isLike: true,
+        time: new Date()
+    });
+    comment.save()
+    .then(result => {
+        res.redirect(`/postDetails/${postId}`);
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
+};
+
+exports.newComment = (req, res, next) => {
+    const postId = req.params.postId;
+    const desc = req.body.description;
+    const user = req.user._id;
+    const comment = new Comment({
+        userId: user,
+        postId: postId,
+        isLike: false,
+        description: desc,
+        time: new Date()
+    });
+    comment.save()
+        .then(result => {
+            res.redirect(`/postDetails/${postId}`);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
+};

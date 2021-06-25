@@ -23,23 +23,9 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
-    likes: {
-        type: Number
-    },
     privacy: {
         type: String,
         required: true
-    },
-
-
-    /** make sure these line up with comment model */
-    postComments: {
-        Comments: [{
-            postId: {
-                type: Schema.Types.ObjectId,
-                ref: 'Comment'
-            }
-        }]
     }
 });
 
