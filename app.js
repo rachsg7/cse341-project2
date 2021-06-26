@@ -65,8 +65,11 @@
      })
  );
 
- // ENABLE TO CREATE 1 new user and 10 posts
+ // ENABLE TO CREATE 1 new user and between 3 and 15 random posts. 
+ // ----------------------------------------------------------------------------
  //  authCtrl.generateFakeUsers();
+ // ----------------------------------------------------------------------------
+ // May take a minute with the sleep delay (ensures posts aren't repeats)
 
  app.use(flash());
 

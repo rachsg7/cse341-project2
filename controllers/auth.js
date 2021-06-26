@@ -279,8 +279,10 @@ exports.generateFakeUsers = (req, res, next) => {
                         profileImgUrl: userCtrl.randomProfileImage(ranuser),
                     });
                     user.save();
-                    for (var i = 0; i < 12; i++) {
+                    var mxPost = Math.floor(Math.random() * (15 - 3) + 3);
+                    for (var i = 0; i < mxPost; i++) {
                         userCtrl.randomPost(user);
+                        this.sleep(200);
                     }
                     return user;
                 })
@@ -295,8 +297,10 @@ exports.generateFakeUsers = (req, res, next) => {
         });
 }
 
-function sleep(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
+exports.sleep = (req, res, next) => {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < req);
 }

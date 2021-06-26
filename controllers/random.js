@@ -13,7 +13,7 @@ exports.randomEmail = (req, res, next) => {
 }
 
 exports.randomBio = (req, res, next) => {
-    var bio = "Hi, my name is " + req.name + " and I love to play " + req.sport;
+    var bio = "Hi, my name is " + req.name + " and I love " + req.sport;
     return bio;
 }
 
