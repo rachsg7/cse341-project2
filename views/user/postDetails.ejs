@@ -2,21 +2,27 @@
     <%- include('../includes/nav.ejs') %>
         <main>
             <div class="main_width">
-                <div class="feed">
+                <div class="feed-w">
                     <div class="post_upper">
-                        <p><%= author.name %></p>
-                        <p><%= post.time %></p>
+                        <a href="./../profile/<%= author._id %>"><img class="profile_img" src="/<%= author.profileImgUrl %>"></a>
+                        <p>
+                            <%= author.name %>
+                        </p>
+                        <p>
+                            Description:
+                            <%= post.description %>
+                        </p>
                     </div>
                     <img src="/<%= post.image %>">
                     <div class="feed_lower">
                         <div class="icon__left">
                             <% if(userLiked){ %>
                                 <i class="fa fa-heart fa-2x"></i>
-                            <% }else{ %>
-                                <a href="../like/<%= post._id %>"><i class="far fa-heart fa-2x"></i></a>
-                            <% } %>
-                            <a href="../comment/<%= post._id %>"><i class="far fa-comment fa-2x"></i></a>
-                            <i class="far fa-share-square fa-2x"></i>
+                                <% }else{ %>
+                                    <a href="../like/<%= post._id %>"><i class="far fa-heart fa-2x"></i></a>
+                                    <% } %>
+                                        <a href="../comment/<%= post._id %>"><i class="far fa-comment fa-2x"></i></a>
+                                        <i class="far fa-share-square fa-2x"></i>
                         </div>
                         <span class="icon__text">&nbsp;
                             Likes: <%= likes %>

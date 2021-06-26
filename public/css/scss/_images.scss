@@ -83,7 +83,8 @@ ul {
     margin-top: -10px;
 }
 
-.feed {
+.feed,
+.feed-w {
     padding: 20px;
     margin: 0;
     height: 500px;
@@ -111,6 +112,11 @@ ul {
         padding: 10px;
         color: white;
     }
+}
+
+.feed-w {
+    max-width: 100%;
+    height: auto;
 }
 
 .icon_ {
