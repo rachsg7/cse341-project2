@@ -23,7 +23,7 @@ exports.randomProfileImage = (req, res, next) => {
 
     const url = 'https://thispersondoesnotexist.com/image';
     const filename = uuid() + '.jpg';
-    const path = './images/' + filename;
+    const path = './images/profile/' + filename;
 
     const download = (url, path, callback) => {
         request.head(url, (err, res, body) => {
