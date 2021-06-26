@@ -65,7 +65,8 @@
      })
  );
 
- authCtrl.generateFakeUsers();
+ // ENABLE TO CREATE 1 new user and 10 posts
+ //  authCtrl.generateFakeUsers();
 
  app.use(flash());
 
