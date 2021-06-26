@@ -1,10 +1,11 @@
 const crypto = require('crypto');
 const fetch = require('node-fetch');
 const bcrypt = require('bcryptjs');
+
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
-const userCtrl = require('../controllers/user');
+const userCtrl = require('../controllers/random');
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
@@ -277,7 +278,11 @@ exports.generateFakeUsers = (req, res, next) => {
                         bio: userCtrl.randomBio(ranuser),
                         profileImgUrl: userCtrl.randomProfileImage(ranuser),
                     });
-                    return user.save();
+                    user.save();
+                    for (var i = 0; i < 12; i++) {
+                        userCtrl.randomPost(user);
+                    }
+                    return user;
                 })
                 .catch(err => {
                     const error = new Error(err);
@@ -288,5 +293,10 @@ exports.generateFakeUsers = (req, res, next) => {
         .catch((err) => {
             console.log(err);
         });
+}
 
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
 }

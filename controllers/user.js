@@ -228,8 +228,7 @@ exports.postNewPost = (req, res, next) => {
         image: image.path,
         tags: tags,
         description: description,
-        privacy,
-        privacy
+        privacy: privacy
     });
     post.save()
         .then(result => {
@@ -284,55 +283,6 @@ exports.postDetails = (req, res, next) => {
     });
 };
 
-// RANDOM USER CONTENT
-
-exports.randomUser = (req, res, next) => {
-    let settings = { method: "Get" };
-    var res = fetch('https://api.namefake.com/', settings)
-        .then(res => res.json())
-        .then((json) => {
-            res = JSON.parse(JSON.stringify(json));
-            console.log(res.name);
-            return res;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    console.log("RAN USER: " + res);
-    return JSON.stringify(res);
-}
-
-exports.randomEmail = (req, res, next) => {
-    return req.email_u + "@" + req.email_d;
-}
-
-exports.randomBio = (req, res, next) => {
-    var bio = "Hi, my name is " + req.name + " and I love to play " + req.sport;
-    return bio;
-}
-
-exports.randomProfileImage = (req, res, next) => {
-    const fs = require('fs');
-    const request = require('request');
-
-    const url = 'https://thispersondoesnotexist.com/image';
-    const filename = Date.now() + '.jpg';
-    const path = './images/' + filename;
-
-    const download = (url, path, callback) => {
-        request.head(url, (err, res, body) => {
-            request(url)
-                .pipe(fs.createWriteStream(path))
-                .on('close', callback)
-        })
-    }
-
-    download(url, path, () => {
-        console.log('✅ Done!')
-    })
-
-    return path;
-}
 
 exports.likePost = (req, res, next) => {
     const postId = req.params.postId;
