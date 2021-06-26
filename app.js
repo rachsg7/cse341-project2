@@ -65,7 +65,7 @@
      })
  );
 
- //  authCtrl.generateFakeUsers();
+ authCtrl.generateFakeUsers();
 
  app.use(flash());
 

@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-
+const fetch = require('node-fetch');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 
@@ -257,23 +257,36 @@ exports.postNewPassword = (req, res, next) => {
 };
 
 exports.generateFakeUsers = (req, res, next) => {
-    var ranuser = userCtrl.randomUser();
-    var password = 'test';
-    bcrypt
-        .hash(password, 12)
-        .then(hashedPassword => {
-            const user = new User({
-                email: userCtrl.randomEmail(ranuser),
-                password: hashedPassword,
-                name: ranuser.name,
-                bio: userCtrl.randomBio(ranuser),
-                profileImgUrl: userCtrl.randomProfileImage(ranuser),
-            });
-            return user.save();
+    let settings = { method: "Get" };
+    fetch('https://api.namefake.com/', settings)
+        .then(res => res.json())
+        .then((json) => {
+            res = JSON.parse(JSON.stringify(json));
+            console.log(res.name);
+            return res;
         })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+        .then(ranuser => {
+            var password = 'test';
+            bcrypt
+                .hash(password, 12)
+                .then(hashedPassword => {
+                    const user = new User({
+                        email: userCtrl.randomEmail(ranuser),
+                        password: hashedPassword,
+                        name: ranuser.name,
+                        bio: userCtrl.randomBio(ranuser),
+                        profileImgUrl: userCtrl.randomProfileImage(ranuser),
+                    });
+                    return user.save();
+                })
+                .catch(err => {
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    // return next(error);
+                });
+        })
+        .catch((err) => {
+            console.log(err);
         });
+
 }

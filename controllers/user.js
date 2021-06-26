@@ -249,24 +249,24 @@ exports.postDetails = (req, res, next) => {
     let likes = 0;
     let liked = false;
 
-    Comment.find({postId: id})
-    .then(postComments => {
-        for(let i = 0; i < postComments.length; i++){
-            if(postComments[i].isLike){
-                likes += 1;
-                if(postComments[i].userId = req.user._id){
-                    liked = true;
+    Comment.find({ postId: id })
+        .then(postComments => {
+            for (let i = 0; i < postComments.length; i++) {
+                if (postComments[i].isLike) {
+                    likes += 1;
+                    if (postComments[i].userId = req.user._id) {
+                        liked = true;
+                    }
+                } else {
+                    comments.push(postComments[i])
                 }
-            }else{
-                comments.push(postComments[i])
             }
-        }
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {
@@ -288,21 +288,22 @@ exports.postDetails = (req, res, next) => {
 
 exports.randomUser = (req, res, next) => {
     let settings = { method: "Get" };
-    var object = [];
-    fetch('https://api.namefake.com/', settings)
+    var res = fetch('https://api.namefake.com/', settings)
         .then(res => res.json())
         .then((json) => {
-            object = JSON.parse(JSON.stringify(json));
-            console.log(object.name);
-            return object;
+            res = JSON.parse(JSON.stringify(json));
+            console.log(res.name);
+            return res;
         })
         .catch((err) => {
             console.log(err);
         });
+    console.log("RAN USER: " + res);
+    return JSON.stringify(res);
 }
 
 exports.randomEmail = (req, res, next) => {
-    return req.email_u + "@" + email_u;
+    return req.email_u + "@" + req.email_d;
 }
 
 exports.randomBio = (req, res, next) => {
@@ -311,8 +312,12 @@ exports.randomBio = (req, res, next) => {
 }
 
 exports.randomProfileImage = (req, res, next) => {
-    const fs = require('fs')
-    const request = require('request')
+    const fs = require('fs');
+    const request = require('request');
+
+    const url = 'https://thispersondoesnotexist.com/image';
+    const filename = Date.now() + '.jpg';
+    const path = './images/' + filename;
 
     const download = (url, path, callback) => {
         request.head(url, (err, res, body) => {
@@ -322,8 +327,9 @@ exports.randomProfileImage = (req, res, next) => {
         })
     }
 
-    const url = 'https://thispersondoesnotexist.com/image'
-    const path = './images/' + Date.now() + '.jpg'
+    download(url, path, () => {
+        console.log('✅ Done!')
+    })
 
     return path;
 }
@@ -338,14 +344,14 @@ exports.likePost = (req, res, next) => {
         time: new Date()
     });
     comment.save()
-    .then(result => {
-        res.redirect(`/postDetails/${postId}`);
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    });
+        .then(result => {
+            res.redirect(`/postDetails/${postId}`);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
 
 exports.newComment = (req, res, next) => {
