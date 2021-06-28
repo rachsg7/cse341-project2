@@ -6,6 +6,8 @@ const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
 const userCtrl = require('../controllers/random');
+const user = require('../models/user');
+const { resolve } = require('path');
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
@@ -296,6 +298,49 @@ exports.generateFakeUsers = (req, res, next) => {
             console.log(err);
         });
 }
+
+exports.generateFollows = (req, res, next) => {
+    let userId = [];
+    let randomUserId = [];
+
+    var sleep = (req, res, next) => {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < req);
+    };
+
+    // Fill up userId array
+    User.find({}, async function(err, users) {
+        if (!err) {
+            /** This is for when you need to clear all follows because it got messed up. Generally not recommended */
+            // for (thisUser in users) {
+            //     users[thisUser].clearFollows();
+            // }
+            for (thisUser in users) {
+                userId.push(users[thisUser].id);
+            }
+
+            for (thisUser in users) {
+                const followerCount = Math.random() * 6 + 2;
+                for (var i = 0; i < followerCount; i++) {
+                    randomUserId.push(userId[Math.floor(Math.random() * userId.length)]);
+                }
+
+                for (let i = 0; i < randomUserId.length; i++) {
+                    await users[thisUser].followById(randomUserId[i]);
+                    sleep(200);
+                }
+                randomUserId = [];
+                //console.log(randomUserId);
+            }
+            console.log(users);
+        } else {
+            throw err;
+        }
+    });
+};
 
 exports.sleep = (req, res, next) => {
     const date = Date.now();

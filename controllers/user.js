@@ -6,27 +6,6 @@ const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
 const user = require('../models/user');
 
-// exports.getProfile = (req, res, next) => {
-//     const user = req.user;
-//     console.log(user);
-//     let username;
-//     if (!user.name) {
-//         username = user.email;
-//     } else {
-//         username = user.name;
-//     }
-//     const following = req.user.following.users.length;
-
-//     res.render('user/profile', {
-//         path: '/profile',
-//         pageTitle: 'Pictournal || Profile',
-//         username: username,
-//         posts: user.posts,
-//         following: following,
-//         user: user
-//     });
-// };
-
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);

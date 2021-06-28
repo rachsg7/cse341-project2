@@ -71,6 +71,12 @@
  // ----------------------------------------------------------------------------
  // May take a minute with the sleep delay (ensures posts aren't repeats)
 
+ //  ENABLE TO CREATE follows for all users in the database
+ //  ----------------------------------------------------------------------------
+ //  authCtrl.generateFollows();
+ //  ----------------------------------------------------------------------------
+ //  Also takes a minute for sleep delay
+
  app.use(flash());
 
  app.use((req, res, next) => {
