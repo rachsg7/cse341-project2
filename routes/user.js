@@ -15,6 +15,8 @@ router.get('/like/:postId', isAuth, userController.likePost);
 
 router.get('/comment/:postId', isAuth, userController.newComment);
 
+router.post('/postComment', isAuth, userController.postComment);
+
 router.get('/profile', isAuth, userController.getProfile);
 
 router.get('/profile/:userId', isAuth, userController.getProfile);

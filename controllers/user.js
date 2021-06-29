@@ -284,6 +284,47 @@ exports.postDetails = (req, res, next) => {
     });
 };
 
+exports.newComment = (req, res, next) => {
+    const id = req.params.postId;
+    let comments = [];
+    let likes = 0;
+    let liked = false;
+
+    Comment.find({postId: id})
+    .then(postComments => {
+        for(let i = 0; i < postComments.length; i++){
+            if(postComments[i].isLike){
+                likes += 1;
+                if(postComments[i].userId = req.user._id){
+                    liked = true;
+                }
+            }else{
+                comments.push(postComments[i])
+            }
+        }
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    })
+
+    Post.findById(id).then(post => {
+        User.findById(post.userId).then(author => {
+            res.render('user/newComment', {
+                path: '/newCOmment',
+                pageTitle: 'New Comment',
+                user: req.user,
+                author: author,
+                post: post,
+                comments: comments,
+                likes: likes,
+                userLiked: liked
+            })
+        });
+    });
+};
+
 // RANDOM USER CONTENT
 
 exports.randomUser = (req, res, next) => {
@@ -348,12 +389,14 @@ exports.likePost = (req, res, next) => {
     });
 };
 
-exports.newComment = (req, res, next) => {
-    const postId = req.params.postId;
+exports.postComment = (req, res, next) => {
+    const postId = req.body.postId
     const desc = req.body.description;
     const user = req.user._id;
+    const name = req.user.name;
     const comment = new Comment({
         userId: user,
+        username: name,
         postId: postId,
         isLike: false,
         description: desc,

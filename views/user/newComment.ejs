@@ -25,13 +25,12 @@
                             <i class="far fa-bookmark fa-2x"></i>
                         </div>
                     </div>
-                    <div class="comment_container">
-                        <% for(comment of comments){ %>
-                            <div class="comment_card">
-                                <%= comment.username %>
-                                <div class="comment_description"><%= comment.description %></div>
-                            </div>
-                        <% } %>
+                    <div class="comments">
+                        <form class="comment_form" action="/postComment" method="POST">
+                            <textarea name="description" cols="50" rows="10" placeholder="Type your comment..."></textarea>
+                            <input type="text" value="<%= post._id %>" name="postId" hidden>
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
