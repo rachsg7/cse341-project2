@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const mongodb = require('mongodb');
 const User = require('../models/user');
 const Post = require('../models/post');
 const Comment = require('../models/comment');
@@ -192,6 +193,54 @@ exports.newPost = (req, res, next) => {
         user: req.user
     })
 };
+
+exports.editPost = (req, res, next) => {
+    const id = req.params.postId;
+
+    Post.findById(new mongodb.ObjectId(id)).then(post => {
+        let postTags = '';
+        for(tag of post.tags){
+            postTags += "#";
+            postTags += tag;
+        }
+        res.render('user/editPost', {
+            path: '/editPost',
+            pageTitle: 'Edit Post',
+            user: req.user,
+            post: post,
+            id: post._id,
+            tags: postTags,
+            privacy: post.privacy
+        })
+    });
+};
+
+exports.postEditPost = (req, res, next) => {
+    const tags = (req.body.tags).split("#");
+    const description = req.body.post_desc;
+    const privacy = req.body.privacy;
+    const time = new Date();
+    const image = req.file;
+    const id = req.body.postId;
+
+    Post.findById(id).then(post => {
+        post.tags = tags;
+        post.description = description;
+        post.privacy = privacy;
+        post.time = time;
+        if (image) {
+            if(post.image){
+                fileHelper.deleteFile(post.image);
+            }
+            post.image = image.path;
+        }
+        return post.save()
+            .then(result => {
+                res.redirect('/postDetails/' + post._id);
+            });
+        });
+};
+
 
 exports.postNewPost = (req, res, next) => {
     const tags = (req.body.tags).split("#");

@@ -470,6 +470,10 @@ ul {
   color: white;
 }
 
+.post a{
+  color: white;
+}
+
 .feed-w {
   max-width: 100%;
   height: auto;

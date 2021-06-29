@@ -9,6 +9,10 @@ router.post('/newPost', isAuth, userController.postNewPost);
 
 router.get('/newPost', isAuth, userController.newPost);
 
+router.get('/edit/:postId', isAuth, userController.editPost);
+
+router.post('/edit', isAuth, userController.postEditPost);
+
 router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
 router.get('/like/:postId', isAuth, userController.likePost);
