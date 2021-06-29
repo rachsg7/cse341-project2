@@ -1,10 +1,13 @@
 const crypto = require('crypto');
-
+const fetch = require('node-fetch');
 const bcrypt = require('bcryptjs');
+
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
-const userCtrl = require('../controllers/user');
+const userCtrl = require('../controllers/random');
+const user = require('../models/user');
+const { resolve } = require('path');
 
 exports.getLogin = (req, res, next) => {
     let message = req.flash('error');
@@ -257,23 +260,92 @@ exports.postNewPassword = (req, res, next) => {
 };
 
 exports.generateFakeUsers = (req, res, next) => {
-    var ranuser = userCtrl.randomUser();
-    var password = 'test';
-    bcrypt
-        .hash(password, 12)
-        .then(hashedPassword => {
-            const user = new User({
-                email: userCtrl.randomEmail(ranuser),
-                password: hashedPassword,
-                name: ranuser.name,
-                bio: userCtrl.randomBio(ranuser),
-                profileImgUrl: userCtrl.randomProfileImage(ranuser),
-            });
-            return user.save();
+    let settings = { method: "Get" };
+    fetch('https://api.namefake.com/', settings)
+        .then(res => res.json())
+        .then((json) => {
+            res = JSON.parse(JSON.stringify(json));
+            console.log(res.name);
+            return res;
         })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+        .then(ranuser => {
+            var password = 'test';
+            bcrypt
+                .hash(password, 12)
+                .then(hashedPassword => {
+                    const user = new User({
+                        email: userCtrl.randomEmail(ranuser),
+                        password: hashedPassword,
+                        name: ranuser.name,
+                        bio: userCtrl.randomBio(ranuser),
+                        profileImgUrl: userCtrl.randomProfileImage(ranuser),
+                    });
+                    user.save();
+                    var mxPost = Math.floor(Math.random() * (15 - 3) + 3);
+                    for (var i = 0; i < mxPost; i++) {
+                        userCtrl.randomPost(user);
+                        this.sleep(200);
+                    }
+                    return user;
+                })
+                .catch(err => {
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    // return next(error);
+                });
+        })
+        .catch((err) => {
+            console.log(err);
         });
+}
+
+exports.generateFollows = (req, res, next) => {
+    let userId = [];
+    let randomUserId = [];
+
+    var sleep = (req, res, next) => {
+        const date = Date.now();
+        let currentDate = null;
+        do {
+            currentDate = Date.now();
+        } while (currentDate - date < req);
+    };
+
+    // Fill up userId array
+    User.find({}, async function(err, users) {
+        if (!err) {
+            /** This is for when you need to clear all follows because it got messed up. Generally not recommended */
+            // for (thisUser in users) {
+            //     users[thisUser].clearFollows();
+            // }
+            for (thisUser in users) {
+                userId.push(users[thisUser].id);
+            }
+
+            for (thisUser in users) {
+                const followerCount = Math.random() * 6 + 2;
+                for (var i = 0; i < followerCount; i++) {
+                    randomUserId.push(userId[Math.floor(Math.random() * userId.length)]);
+                }
+
+                for (let i = 0; i < randomUserId.length; i++) {
+                    await users[thisUser].followById(randomUserId[i]);
+                    sleep(200);
+                }
+                randomUserId = [];
+                //console.log(randomUserId);
+            }
+            console.log(users);
+        } else {
+            throw err;
+        }
+    });
+};
+
+exports.sleep = (req, res, next) => {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate - date < req);
 }

@@ -45,12 +45,28 @@
                             <h1>Nothing to see here.</h1>
                             <% } else { %>
 
-                                <div class="feed">
-                                    <% for (post of posts){  %>
-                                        <a href="../../postDetails/<%= post._id %>"><img class="posts_img" src="/<%= post.image %>"></a>
+
+                                <% for (post of posts){  %>
+                                    <div class="feed">
+                                        <a href="../../postDetails/<%= post._id %>">
+                                            <img class="posts_img" src="/<%= post.image %>">
+                                        </a>
+                                        <div class="feed_lower">
+                                            <div class="icon__left">
+                                                <i class="far fa-heart fa-2x"></i>
+                                                <i class="far fa-comment fa-2x"></i>
+                                                <i class="far fa-share-square fa-2x"></i>
+                                            </div>
+                                            <span class="icon__text">&nbsp;Likes: 
+                                                [TEMP]
+                                            </span>
+                                            <div class="icon__right">
+                                                <i class="far fa-bookmark fa-2x"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
                                         <% } %>
-                                </div>
-                                <% } %>
                 </ul>
             </div>
         </main>

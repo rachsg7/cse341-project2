@@ -6,27 +6,6 @@ const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
 const user = require('../models/user');
 
-// exports.getProfile = (req, res, next) => {
-//     const user = req.user;
-//     console.log(user);
-//     let username;
-//     if (!user.name) {
-//         username = user.email;
-//     } else {
-//         username = user.name;
-//     }
-//     const following = req.user.following.users.length;
-
-//     res.render('user/profile', {
-//         path: '/profile',
-//         pageTitle: 'Pictournal || Profile',
-//         username: username,
-//         posts: user.posts,
-//         following: following,
-//         user: user
-//     });
-// };
-
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);
@@ -228,8 +207,7 @@ exports.postNewPost = (req, res, next) => {
         image: image.path,
         tags: tags,
         description: description,
-        privacy,
-        privacy
+        privacy: privacy
     });
     post.save()
         .then(result => {
@@ -249,24 +227,24 @@ exports.postDetails = (req, res, next) => {
     let likes = 0;
     let liked = false;
 
-    Comment.find({postId: id})
-    .then(postComments => {
-        for(let i = 0; i < postComments.length; i++){
-            if(postComments[i].isLike){
-                likes += 1;
-                if(postComments[i].userId = req.user._id){
-                    liked = true;
+    Comment.find({ postId: id })
+        .then(postComments => {
+            for (let i = 0; i < postComments.length; i++) {
+                if (postComments[i].isLike) {
+                    likes += 1;
+                    if (postComments[i].userId = req.user._id) {
+                        liked = true;
+                    }
+                } else {
+                    comments.push(postComments[i])
                 }
-            }else{
-                comments.push(postComments[i])
             }
-        }
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {
@@ -325,49 +303,7 @@ exports.newComment = (req, res, next) => {
     });
 };
 
-// RANDOM USER CONTENT
 
-exports.randomUser = (req, res, next) => {
-    let settings = { method: "Get" };
-    var object = [];
-    fetch('https://api.namefake.com/', settings)
-        .then(res => res.json())
-        .then((json) => {
-            object = JSON.parse(JSON.stringify(json));
-            console.log(object.name);
-            return object;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-exports.randomEmail = (req, res, next) => {
-    return req.email_u + "@" + email_u;
-}
-
-exports.randomBio = (req, res, next) => {
-    var bio = "Hi, my name is " + req.name + " and I love to play " + req.sport;
-    return bio;
-}
-
-exports.randomProfileImage = (req, res, next) => {
-    const fs = require('fs')
-    const request = require('request')
-
-    const download = (url, path, callback) => {
-        request.head(url, (err, res, body) => {
-            request(url)
-                .pipe(fs.createWriteStream(path))
-                .on('close', callback)
-        })
-    }
-
-    const url = 'https://thispersondoesnotexist.com/image'
-    const path = './images/' + Date.now() + '.jpg'
-
-    return path;
-}
 
 exports.likePost = (req, res, next) => {
     const postId = req.params.postId;
@@ -379,14 +315,14 @@ exports.likePost = (req, res, next) => {
         time: new Date()
     });
     comment.save()
-    .then(result => {
-        res.redirect(`/postDetails/${postId}`);
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    });
+        .then(result => {
+            res.redirect(`/postDetails/${postId}`);
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };
 
 exports.postComment = (req, res, next) => {

@@ -79,6 +79,25 @@ userSchema.methods.follow = function(user) {
     return this.save();
 };
 
+userSchema.methods.followById = async function(userId) {
+    let userFollows = [...this.following.users];
+    if (!this.isFollowing(userId)) {
+        userFollows.push({
+            userId: userId.toString()
+        });
+        userFollows = [...new Set(userFollows)];
+        this.following.users = userFollows;
+        return await this.save();
+    }
+};
+
+userSchema.methods.clearFollows = async function() {
+    let userFollows = [...this.following.users];
+    userFollows = [];
+    this.following.users = userFollows;
+    return await this.save();
+}
+
 userSchema.methods.isFollowing = function(userId) {
     const updatedUsers = this.following.users.filter(user => {
         return user.userId.toString() == userId.toString();
