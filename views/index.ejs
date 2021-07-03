@@ -10,12 +10,20 @@
             </div>
             <div>
                 <ul class="gallery">
-                    <% var max = 50;
+                    <% for (post of posts){ %>
+                        <li style="width:33%; height:auto;">
+                            <a href="../../postDetails/<%= post._id %>">
+                                                <img src="/<%= post.image %>">
+                        </a>
+                        </li>
+                        <% } %>
+
+                            <!-- <% var max = 50;
                         for (var i = 0; i < max; i++){ 
                         var w = Math.floor(Math.random() * (5 - 2) + 2)*100;
                         var h = Math.floor(Math.random() * (5 - 2) + 2)*100;%>
                         <li><a href="#<%= i %>"><img src="https://source.unsplash.com/random/<%= w %>x<%= h %>?sig=<%= i %>" loading="lazy"></a></li>
-                        <% } %>
+                        <% } %> -->
                 </ul>
             </div>
         </main>

@@ -31,11 +31,13 @@ ul {
 }
 
 .gallery img {
-    max-height: 100%;
-    min-width: 100%;
+    max-height: 500px;
+    // min-width: 100%;
     object-fit: cover;
     vertical-align: bottom;
-    height: 100%;
+    height: auto;
+    background-position: center;
+    // width: auto;
 }
 
 .profile_img {
@@ -97,13 +99,10 @@ ul {
         $dpos: 1px;
         $dneg: -1px;
         box-shadow: $dpos $dpos $blur $color-shad, $dneg $dneg $blur $color-shad, $dneg $dpos $blur $color-shad, $dpos $dneg $blur $color-shad;
-        &:hover {
-            overflow: hidden;
-            opacity: 0.7;
-        }
     }
     &_lower {
         // width: 500px;
+        opacity: 0;
         background-color: rgba(rgb(0, 0, 0), 0.8);
         position: relative;
         z-index: 10;
@@ -111,6 +110,10 @@ ul {
         height: 50px;
         padding: 10px;
         color: white;
+        width: 100%;
+        &:hover {
+            opacity: 1;
+        }
     }
 }
 

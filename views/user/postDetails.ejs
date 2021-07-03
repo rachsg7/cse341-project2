@@ -13,7 +13,7 @@
                             <%= post.description %>
                         </p>
                     </div>
-                    <img src="/<%= post.image %>">
+                    <img style="width: 100%; height: auto;" src="/<%= post.image %>">
                     <div class="feed_lower">
                         <div class="icon__left">
                             <% if(userLiked){ %>
@@ -30,16 +30,18 @@
                         <div class="icon__right">
                             <% if(String(author._id) == String(user._id)){ %>
                                 <a href="../edit/<%= post._id %>"><i class="far fa-edit fa-2x"></i></a>
-                            <% } %>
+                                <% } %>
                         </div>
                     </div>
                     <div class="comment_container">
                         <% for(comment of comments){ %>
                             <div class="comment_card">
                                 <%= comment.username %>
-                                <div class="comment_description"><%= comment.description %></div>
+                                    <div class="comment_description">
+                                        <%= comment.description %>
+                                    </div>
                             </div>
-                        <% } %>
+                            <% } %>
                     </div>
                 </div>
             </div>

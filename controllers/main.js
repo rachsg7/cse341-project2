@@ -1,4 +1,5 @@
 const Posts = require('../models/post');
+const Comment = require('../models/comment');
 
 exports.getIndex = (req, res, next) => {
     Posts.find()
@@ -15,5 +16,4 @@ exports.getIndex = (req, res, next) => {
             error.httpStatusCode = 500;
             return next(error);
         });
-
 };
