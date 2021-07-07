@@ -6,6 +6,7 @@ const Comment = require('../models/comment');
 const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
 const user = require('../models/user');
+const bcrypt = require('bcryptjs');
 
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
@@ -76,8 +77,10 @@ exports.getEditProfile = (req, res, next) => {
     }
 };
 
-exports.postEditProfile = (req, res, next) => {
+exports.postEditProfile = async(req, res, next) => {
     const username = req.body.user_name;
+    const oldPass = req.body.old_password;
+    const newPass = req.body.new_password;
     const bio = req.body.user_bio;
     const userId = req.body.userId;
     const image = req.file;
@@ -95,13 +98,26 @@ exports.postEditProfile = (req, res, next) => {
         });
     }
 
-    User.findById(userId)
-        .then(user => {
-            if (user._id.toString() !== req.user._id.toString()) {
-                return res.redirect('/');
+    if (oldPass && newPass) {
+        const user = await User.findById(userId);
+        if (!user) {
+            const error = new Error('User not found.');
+            error.statusCode = 404;
+            throw error;
+        }
+        if (user._id.toString() !== req.user._id.toString()) {
+            return res.redirect('/');
+        }
+        try {
+            const isEqual = await bcrypt.compare(oldPass, user.password);
+            if (!isEqual) {
+                const error = new Error('Wrong password!');
+                error.statusCode = 401;
+                throw error;
             }
             user.name = username;
             user.bio = bio;
+            user.password = await bcrypt.hash(newPass, 12);
             if (image) {
                 if (user.profileImgUrl) {
                     fileHelper.deleteFile(user.profileImgUrl);
@@ -112,7 +128,31 @@ exports.postEditProfile = (req, res, next) => {
                 .then(result => {
                     res.redirect('/profile/' + user._id);
                 });
-        });
+
+        } catch (err) {
+            console.log(err);
+        };
+    } else {
+        User.findById(userId)
+            .then(user => {
+                if (user._id.toString() !== req.user._id.toString()) {
+                    return res.redirect('/');
+                }
+                user.name = username;
+                user.bio = bio;
+                if (image) {
+                    if (user.profileImgUrl) {
+                        fileHelper.deleteFile(user.profileImgUrl);
+                    }
+                    user.profileImgUrl = image.path;
+                }
+                return user.save()
+                    .then(result => {
+                        res.redirect('/profile/' + user._id);
+                    });
+
+            })
+    };
 };
 
 exports.getFollowing = (req, res, next) => {
@@ -199,7 +239,7 @@ exports.editPost = (req, res, next) => {
 
     Post.findById(new mongodb.ObjectId(id)).then(post => {
         let postTags = '';
-        for(tag of post.tags){
+        for (tag of post.tags) {
             postTags += "#";
             postTags += tag;
         }
@@ -229,7 +269,7 @@ exports.postEditPost = (req, res, next) => {
         post.privacy = privacy;
         post.time = time;
         if (image) {
-            if(post.image){
+            if (post.image) {
                 fileHelper.deleteFile(post.image);
             }
             post.image = image.path;
@@ -238,7 +278,7 @@ exports.postEditPost = (req, res, next) => {
             .then(result => {
                 res.redirect('/postDetails/' + post._id);
             });
-        });
+    });
 };
 
 
@@ -317,24 +357,24 @@ exports.newComment = (req, res, next) => {
     let likes = 0;
     let liked = false;
 
-    Comment.find({postId: id})
-    .then(postComments => {
-        for(let i = 0; i < postComments.length; i++){
-            if(postComments[i].isLike){
-                likes += 1;
-                if(postComments[i].userId = req.user._id){
-                    liked = true;
+    Comment.find({ postId: id })
+        .then(postComments => {
+            for (let i = 0; i < postComments.length; i++) {
+                if (postComments[i].isLike) {
+                    likes += 1;
+                    if (postComments[i].userId = req.user._id) {
+                        liked = true;
+                    }
+                } else {
+                    comments.push(postComments[i])
                 }
-            }else{
-                comments.push(postComments[i])
             }
-        }
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {

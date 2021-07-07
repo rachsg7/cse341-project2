@@ -299,7 +299,7 @@ exports.generateFakeUsers = (req, res, next) => {
         });
 }
 
-exports.generateFollows = (req, res, next) => {
+exports.generateFollows = async(req, res, next) => {
     let userId = [];
     let randomUserId = [];
 
@@ -324,22 +324,22 @@ exports.generateFollows = (req, res, next) => {
 
             for (thisUser in users) {
                 const followerCount = Math.random() * 6 + 2;
-                for (var i = 0; i < followerCount; i++) {
-                    randomUserId.push(userId[Math.floor(Math.random() * userId.length)]);
-                }
+                // for (var i = 0; i < followerCount; i++) {
+                //     randomUserId.push(userId[Math.floor(Math.random() * userId.length)]);
+                // }
 
-                for (let i = 0; i < randomUserId.length; i++) {
-                    await users[thisUser].followById(randomUserId[i]);
-                    sleep(200);
-                }
+                // for (let i = 0; i < randomUserId.length; i++) {
+                //     await users[thisUser].followById(randomUserId[i]);
+                //     sleep(200);
+                // }
                 randomUserId = [];
-                //console.log(randomUserId);
             }
             console.log(users);
         } else {
             throw err;
         }
     });
+
 };
 
 exports.sleep = (req, res, next) => {

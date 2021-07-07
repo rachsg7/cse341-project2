@@ -6,6 +6,12 @@
                     <label for="user_name">Your Name</label>
                     <input class="<%= validationErrors.find(e => e.param === 'username') ? 'invalid' : '' %>" name="user_name" id="user_name" value="<%= user.name %>">
 
+                    <label for="old_password">Old Password</label>
+                    <input name="old_password" id="old_password" type="password">
+
+                    <label for="new_password">New Password</label>
+                    <input name="new_password" id="new_password" type="password">
+
                     <label for="profile_img">Edit Profile Picture</label>
                     <input type="file" name="image" id="image">
 
