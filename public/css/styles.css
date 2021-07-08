@@ -454,6 +454,10 @@ ul {
   width: 100%;
 }
 
+.feed a{
+  color: white;
+}
+
 .feed_lower:hover,
 .feed-w_lower:hover {
   opacity: 1;

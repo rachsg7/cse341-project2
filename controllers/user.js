@@ -7,6 +7,29 @@ const fetch = require('node-fetch');
 const fileHelper = require('../util/file');
 const user = require('../models/user');
 
+const getLikes = (user, id, comments, obj) => {
+    return new Promise((resolve,reject) => {
+        Comment.find({ postId: id })
+        .then(postComments => {
+            for (let i = 0; i < postComments.length; i++) {
+                if (postComments[i].isLike) {
+                    obj.likes += 1;
+                    if (postComments[i].userId = user) {
+                        obj.liked = true;
+                    }
+                } else {
+                    comments.push(postComments[i])
+                }
+            }
+            resolve('successful')
+        })
+        .catch(err => {
+            reject(err);  
+        })
+
+    })
+}
+
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);
@@ -179,11 +202,40 @@ exports.postUnfollow = (req, res, next) => {
 };
 
 exports.getFeed = (req, res, next) => {
-    res.render('user/feed', {
-        path: '/feed',
-        pageTitle: 'Feed',
-        user: req.user
-    })
+    const followers = req.user.following.users;
+    let likes = [];
+    let liked = [];
+    let feed = [];
+    const id = [];
+
+    for( follower of followers ){
+        id.push(new mongodb.ObjectId(follower.userId));
+    }
+    Post.find({userId: {$in: id}}).then(async posts => {
+        feed = posts;
+        for (post of posts){
+            const postId = post._id;
+            let comments = [];
+            let obj = {likes: 0, liked: false};
+            await getLikes(req.user._id, postId, comments, obj).then(() =>{
+                likes.push(obj.likes);
+                liked.push(obj.liked);
+                }
+            )
+        }
+    }).then(() =>{
+        console.log(liked);
+        console.log(likes);
+        
+        res.render('user/feed', {
+            path: '/feed',
+            pageTitle: 'Feed',
+            user: req.user,
+            posts: feed,
+            likes: likes,
+            liked: liked
+        });
+    });
 };
 
 exports.newPost = (req, res, next) => {

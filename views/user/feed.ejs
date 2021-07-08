@@ -5,28 +5,26 @@
                 <div class="flex">
 
                     <div class="left">
-                        <% for (var i = 0; i < 20; i++){ %>
-                            <% 
-                        var min = Math.ceil(1);
-                        var max = Math.floor(2000);
-                        var random = Math.floor(Math.random() * (max - min) + min); %>
+                        <% for (let i = posts.length - 1; i >= 0; i--){ %>
+                            
                                 <div class="feed">
-                                    <img src="https://source.unsplash.com/random/500x500?sig=<%= i %>" loading="lazy">
+                                    <img src="/<%= posts[i].image %>" loading="lazy">
                                     <div class="feed_lower">
                                         <div class="icon__left">
-                                            <i class="far fa-heart fa-2x"></i>
-                                            <i class="far fa-comment fa-2x"></i>
-                                            <i class="far fa-share-square fa-2x"></i>
+                                            <% if(liked[i]){ %>
+                                                <i class="fa fa-heart fa-2x"></i>
+                                            <% }else{ %>
+                                                <a href="../like/<%= posts[i]._id %>"><i class="far fa-heart fa-2x"></i></a>
+                                            <% } %>
+                                            <a href="../comment/<%= posts[i]._id %>"><i class="far fa-comment fa-2x"></i></a>
                                         </div>
-                                        <span class="icon__text">&nbsp;Likes: 
-                                    <%= random.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); %>
+                                        <span class="icon__text">&nbsp;Likes: <%= likes[i]%>
                                 </span>
                                         <div class="icon__right">
-                                            <i class="far fa-bookmark fa-2x"></i>
                                         </div>
                                     </div>
                                 </div>
-                                <% } %>
+                        <% } %>
                     </div>
                     <div class="right">
                         <div class="user__static message_main">
