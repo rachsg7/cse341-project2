@@ -263,10 +263,7 @@ exports.getFeed = (req, res, next) => {
                 }
             )
         }
-    }).then(() =>{
-        console.log(liked);
-        console.log(likes);
-        
+    }).then(() =>{        
         res.render('user/feed', {
             path: '/feed',
             pageTitle: 'Feed',
@@ -448,6 +445,7 @@ exports.newComment = (req, res, next) => {
 
 exports.likePost = (req, res, next) => {
     const postId = req.params.postId;
+    const page = req.params.page;
     const user = req.user._id;
     const comment = new Comment({
         userId: user,
@@ -457,7 +455,12 @@ exports.likePost = (req, res, next) => {
     });
     comment.save()
         .then(result => {
-            res.redirect(`/postDetails/${postId}`);
+            if(page == 'postDetails'){
+                res.redirect(`/${page}/${postId}`);
+            }
+            else{
+                res.redirect(`/${page}`);
+            }
         })
         .catch(err => {
             const error = new Error(err);

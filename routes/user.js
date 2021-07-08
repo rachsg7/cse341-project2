@@ -15,7 +15,7 @@ router.post('/edit', isAuth, userController.postEditPost);
 
 router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
-router.get('/like/:postId', isAuth, userController.likePost);
+router.get('/like/:postId/:page', isAuth, userController.likePost);
 
 router.get('/comment/:postId', isAuth, userController.newComment);
 
