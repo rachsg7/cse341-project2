@@ -34,6 +34,9 @@ const getLikes = (user, id, comments, obj) => {
 exports.getProfile = (req, res, next) => {
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);
+    let likes = [];
+    let liked = [];
+    let feed = [];
 
     // console.log(req.user.following);
 
@@ -44,19 +47,33 @@ exports.getProfile = (req, res, next) => {
             const id = mainUser._id;
             const following = user.following.users.length;
             //find post for user
-            Post.find({ userId: visiting }).then(posts => {
+            Post.find({ userId: visiting }).then(async posts => {
+                feed = posts;
+                for (post of posts){
+                    const postId = post._id;
+                    let comments = [];
+                    let obj = {likes: 0, liked: false};
+                    await getLikes(req.user._id, postId, comments, obj).then(() =>{
+                        likes.push(obj.likes);
+                        liked.push(obj.liked);
+                        }
+                    )
+                }
+            }).then(() => {
                 // If the user is the owner of the Profile, they are allowed to edit
                 if (mainUser._id.toString() == visiting.toString()) {
                     return res.render('user/profile', {
                         path: '/profile',
                         pageTitle: 'Pictournal || Profile',
                         username: username,
-                        posts: posts,
+                        posts: feed,
                         following: following,
                         user: user,
                         profileUser: user,
                         canEdit: true,
-                        isFollowing: isFollowing
+                        isFollowing: isFollowing,
+                        likes: likes,
+                        liked: liked
                     });
                 }
                 // If the user does not own the profile, they cannot edit
@@ -64,12 +81,14 @@ exports.getProfile = (req, res, next) => {
                     path: '/profile',
                     pageTitle: 'Pictournal || Profile',
                     username: username,
-                    posts: posts,
+                    posts: feed,
                     following: following,
                     user: mainUser,
                     profileUser: user,
                     canEdit: false,
-                    isFollowing: isFollowing
+                    isFollowing: isFollowing,
+                    likes: likes,
+                    liked: liked
                 })
             });
         })
@@ -361,28 +380,28 @@ exports.postNewPost = (req, res, next) => {
 
 exports.postDetails = (req, res, next) => {
     const id = req.params.postId;
+    console.log(id);
     let comments = [];
     let likes = 0;
     let liked = false;
 
-    Comment.find({ postId: id })
-        .then(postComments => {
-            for (let i = 0; i < postComments.length; i++) {
-                if (postComments[i].isLike) {
-                    likes += 1;
-                    if (postComments[i].userId = req.user._id) {
-                        liked = true;
-                    }
-                } else {
-                    comments.push(postComments[i])
+    Comment.find({ postId: new mongodb.ObjectId(id) }).then(postComments => {
+        for (let i = 0; i < postComments.length; i++) {
+            if (postComments[i].isLike) {
+                likes += 1;
+                if (postComments[i].userId = req.user._id) {
+                    liked = true;
                 }
+            } else {
+                comments.push(postComments[i])
             }
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
-        })
+        }
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    })
 
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {
@@ -458,8 +477,11 @@ exports.likePost = (req, res, next) => {
             if(page == 'postDetails'){
                 res.redirect(`/${page}/${postId}`);
             }
+            else if(page == 'feed'){
+                res.redirect(`/${page}`)
+            }
             else{
-                res.redirect(`/${page}`);
+                res.redirect(`/profile/${page}`);
             }
         })
         .catch(err => {

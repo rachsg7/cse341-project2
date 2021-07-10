@@ -41,30 +41,34 @@
                         <% } %> -->
                     <%if(!posts && canEdit) { %>
                         <h1>Nothing to See! Add a Post?</h1>
-                        <% } else if(!posts) { %>
-                            <h1>Nothing to see here.</h1>
-                            <% } else { %>
-                                <% for (post of posts){  %>
-                                    <div class="feed">
-                                        <a href="../../postDetails/<%= post._id %>">
-                                            <img class="posts_img" src="/<%= post.image %>">
-                                        </a>
-                                        <div class="feed_lower">
-                                            <div class="icon__left">
-                                                <i class="far fa-heart fa-2x"></i>
-                                                <i class="far fa-comment fa-2x"></i>
-                                                <i class="far fa-share-square fa-2x"></i>
-                                            </div>
-                                            <span class="icon__text">&nbsp;Likes: 
-                                                [TEMP]
-                                            </span>
-                                            <div class="icon__right">
-                                                <i class="far fa-bookmark fa-2x"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <% } %>
+                    <% } else if(!posts) { %>
+                        <h1>Nothing to see here.</h1>
+                    <% } else { %>
+                        <% for (let i = posts.length - 1; i >= 0; i--){ %>
+                            <div class="feed">
+                                <a href="../../postDetails/<%= posts[i]._id %>">
+                                    <img src="/<%= posts[i].image %>" loading="lazy">
+                                </a>
+                                <div class="feed_lower">
+                                    <div class="icon__left">
+                                        <% if(liked[i]){ %>
+                                            <i class="fa fa-heart fa-2x"></i>
+                                        <% }else{ %>
+                                            <a href="../like/<%= posts[i]._id %>/<%= profileUser._id %>"><i class="far fa-heart fa-2x"></i></a>
                                         <% } %>
+                                        <a href="../comment/<%= posts[i]._id %>"><i class="far fa-comment fa-2x"></i></a>
+                                    </div>
+                                    <span class="icon__text">&nbsp;Likes: <%= likes[i]%>
+                            </span>
+                                    <div class="icon__right">
+                                        <% if(canEdit){ %>
+                                            <a href="../edit/<%= post._id %>"><i class="far fa-edit fa-2x"></i></a>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    <% } %>
                 </ul>
             </div>
         </main>
