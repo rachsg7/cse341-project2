@@ -16,6 +16,12 @@
                 <% } else { %>
                     <li class="main__nav_item">
                         <a class="<%= path === '/logout' ? 'active' : '' %>" href="/logout">Logout</a></li>
+                    <li>
+                        <label class="switch">
+                                <input type="checkbox" id="toggle">
+                                <span class="slider round"></span>
+                            </label>
+                    </li>
                     <!-- <form action="/logout" method="post">
                         <button class="btn" type="submit">Logout</button>
                     </form>
