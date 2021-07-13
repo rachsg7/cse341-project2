@@ -378,7 +378,7 @@ exports.postNewPost = (req, res, next) => {
 
 exports.postDetails = (req, res, next) => {
     const id = req.params.postId;
-    console.log(id);
+    // console.log(id);
     let comments = [];
     let likes = 0;
     let liked = false;
