@@ -10,7 +10,8 @@
             </div>
             <div>
                 <ul class="gallery">
-                    <% for (post of posts){ %>
+                    <%  posts = posts.sort(() => Math.random() - 0.5)
+                        for (post of posts){ %>
 
                         <li style="width:33%; height:auto;">
                             <a href="../../postDetails/<%= post._id %>">
