@@ -9,24 +9,24 @@ const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 const getLikes = (user, id, comments, obj) => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         Comment.find({ postId: id })
-        .then(postComments => {
-            for (let i = 0; i < postComments.length; i++) {
-                if (postComments[i].isLike) {
-                    obj.likes += 1;
-                    if (postComments[i].userId = user) {
-                        obj.liked = true;
+            .then(postComments => {
+                for (let i = 0; i < postComments.length; i++) {
+                    if (postComments[i].isLike) {
+                        obj.likes += 1;
+                        if (postComments[i].userId = user) {
+                            obj.liked = true;
+                        }
+                    } else {
+                        comments.push(postComments[i])
                     }
-                } else {
-                    comments.push(postComments[i])
                 }
-            }
-            resolve('successful')
-        })
-        .catch(err => {
-            reject(err);  
-        })
+                resolve('successful')
+            })
+            .catch(err => {
+                reject(err);
+            })
 
     })
 }
@@ -49,15 +49,14 @@ exports.getProfile = (req, res, next) => {
             //find post for user
             Post.find({ userId: visiting }).then(async posts => {
                 feed = posts;
-                for (post of posts){
+                for (post of posts) {
                     const postId = post._id;
                     let comments = [];
-                    let obj = {likes: 0, liked: false};
-                    await getLikes(req.user._id, postId, comments, obj).then(() =>{
+                    let obj = { likes: 0, liked: false };
+                    await getLikes(req.user._id, postId, comments, obj).then(() => {
                         likes.push(obj.likes);
                         liked.push(obj.liked);
-                        }
-                    )
+                    })
                 }
             }).then(() => {
                 // If the user is the owner of the Profile, they are allowed to edit
@@ -267,22 +266,21 @@ exports.getFeed = (req, res, next) => {
     let feed = [];
     const id = [];
 
-    for( follower of followers ){
+    for (follower of followers) {
         id.push(new mongodb.ObjectId(follower.userId));
     }
-    Post.find({userId: {$in: id}}).then(async posts => {
+    Post.find({ userId: { $in: id } }).then(async posts => {
         feed = posts;
-        for (post of posts){
+        for (post of posts) {
             const postId = post._id;
             let comments = [];
-            let obj = {likes: 0, liked: false};
-            await getLikes(req.user._id, postId, comments, obj).then(() =>{
+            let obj = { likes: 0, liked: false };
+            await getLikes(req.user._id, postId, comments, obj).then(() => {
                 likes.push(obj.likes);
                 liked.push(obj.liked);
-                }
-            )
+            })
         }
-    }).then(() =>{        
+    }).then(() => {
         res.render('user/feed', {
             path: '/feed',
             pageTitle: 'Feed',
@@ -386,22 +384,22 @@ exports.postDetails = (req, res, next) => {
     let liked = false;
 
     Comment.find({ postId: new mongodb.ObjectId(id) }).then(postComments => {
-        for (let i = 0; i < postComments.length; i++) {
-            if (postComments[i].isLike) {
-                likes += 1;
-                if (postComments[i].userId = req.user._id) {
-                    liked = true;
+            for (let i = 0; i < postComments.length; i++) {
+                if (postComments[i].isLike) {
+                    likes += 1;
+                    if (postComments[i].userId = req.user._id) {
+                        liked = true;
+                    }
+                } else {
+                    comments.push(postComments[i])
                 }
-            } else {
-                comments.push(postComments[i])
             }
-        }
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    })
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 
     Post.findById(id).then(post => {
         User.findById(post.userId).then(author => {
@@ -474,13 +472,11 @@ exports.likePost = (req, res, next) => {
     });
     comment.save()
         .then(result => {
-            if(page == 'postDetails'){
+            if (page == 'postDetails') {
                 res.redirect(`/${page}/${postId}`);
-            }
-            else if(page == 'feed'){
+            } else if (page == 'feed') {
                 res.redirect(`/${page}`)
-            }
-            else{
+            } else {
                 res.redirect(`/profile/${page}`);
             }
         })

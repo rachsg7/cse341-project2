@@ -18,6 +18,7 @@ ul {
     flex-grow: 1;
     border: 5pt solid white;
     overflow: hidden;
+    text-align: center;
 }
 
 .gallery li:hover {
@@ -34,7 +35,8 @@ ul {
     max-height: 500px;
     // min-width: 100%;
     object-fit: cover;
-    vertical-align: bottom;
+    // vertical-align: bottom;
+    vertical-align: middle;
     height: auto;
     background-position: center;
     // width: auto;
@@ -87,18 +89,20 @@ ul {
 
 .feed,
 .feed-w {
-    padding: 20px;
-    margin: 0;
+    $color-shad: rgb(179, 179, 179);
+    $blur: 3px;
+    $dpos: 1px;
+    $dneg: -1px;
+    box-shadow: $dpos $dpos $blur $color-shad, $dneg $dneg $blur $color-shad, $dneg $dpos $blur $color-shad, $dpos $dneg $blur $color-shad;
+    margin: 20px;
     height: 500px;
-    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    // max-width: 500px;
     img {
-        width: 100%;
+        width: 500px;
         height: 100%;
-        $color-shad: rgb(194, 194, 194);
-        $blur: 8px;
-        $dpos: 1px;
-        $dneg: -1px;
-        box-shadow: $dpos $dpos $blur $color-shad, $dneg $dneg $blur $color-shad, $dneg $dpos $blur $color-shad, $dpos $dneg $blur $color-shad;
     }
     &_lower {
         // width: 500px;
@@ -114,6 +118,24 @@ ul {
         &:hover {
             opacity: 1;
         }
+    }
+}
+
+.feed_img {
+    max-width: 500px;
+}
+
+.feed_side {
+    background-color: rgba(rgb(0, 0, 0), 0.8);
+    position: relative;
+    float: right;
+    color: white;
+    z-index: 10;
+    // height: 500px;
+    padding: 10px;
+    width: 100%;
+    &:hover {
+        opacity: 1;
     }
 }
 

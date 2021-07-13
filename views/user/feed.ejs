@@ -6,30 +6,32 @@
 
                     <div class="left">
                         <% for (let i = posts.length - 1; i >= 0; i--){ %>
-                            
-                                <div class="feed">
-                                    <img src="/<%= posts[i].image %>" loading="lazy">
-                                    <div class="feed_lower">
-                                        <div class="icon__left">
-                                            <% if(liked[i]){ %>
-                                                <i class="fa fa-heart fa-2x"></i>
+
+                            <div class="feed">
+                                <div class="feed_img">
+                                    <img src="/<%= posts[i].image %>" onerror="noImage(this)" loading="lazy">
+                                </div>
+                                <div class="feed_side">
+
+                                    <span class="icon__text">&nbsp;Likes: <%= likes[i]%></span>
+                                    <p>
+                                        <%= posts[i].description %>
+                                    </p>
+                                    <p>
+                                        <%= posts[i].time %>
+                                    </p>
+                                    <div class="icon__left">
+                                        <% if(liked[i]){ %>
+                                            <i class="fa fa-heart fa-2x"></i>
                                             <% }else{ %>
                                                 <a href="../like/<%= posts[i]._id %>/feed"><i class="far fa-heart fa-2x"></i></a>
-                                            <% } %>
-                                            <a href="../comment/<%= posts[i]._id %>"><i class="far fa-comment fa-2x"></i></a>
-                                        </div>
-                                        <span class="icon__text">&nbsp;Likes: <%= likes[i]%>
-                                </span>
-                                        <div class="icon__right">
-                                        </div>
+                                                <% } %>
+                                                    <a href="../comment/<%= posts[i]._id %>"><i class="far fa-comment fa-2x"></i></a>
                                     </div>
                                 </div>
-                        <% } %>
-                    </div>
-                    <div class="right">
-                        <div class="user__static message_main">
-                            <p>User info goes here</p>
-                        </div>
+
+                            </div>
+                            <% } %>
                     </div>
                 </div>
             </div>

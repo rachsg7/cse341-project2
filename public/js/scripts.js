@@ -32,3 +32,8 @@ if (localStorage.getItem('theme') == 'theme-dark') {
     darkModeToggle.checked = true;
     document.getElementById('theme').setAttribute('href', '/css/darkstyle.css');
 }
+
+function noImage(el) {
+    el.src = "./no-image.jpg";
+    el.style.height = "100%";
+}

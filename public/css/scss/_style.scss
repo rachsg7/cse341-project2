@@ -242,6 +242,20 @@ p {
     }
 }
 
+li img {
+    background-position-x: center;
+}
+
+.fa,
+.far {
+    filter: brightness(0) invert(1);
+}
+
+.fa:hover,
+.far:hover {
+    filter: invert(89%) sepia(56%) saturate(3350%) hue-rotate(359deg) brightness(105%) contrast(101%);
+}
+
 .comment_form {
     margin-top: 10px;
     display: flex;
@@ -270,39 +284,42 @@ p {
         width: 30rem;
     }
     .profile_header {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        grid-template-rows: 1fr 2fr;
-        grid-gap: 15px;
+        display: flex;
+        // grid-template-columns: 1fr 2fr;
+        // grid-template-rows: 1fr 2fr;
+        // grid-gap: 15px;
         justify-items: center;
     }
-    .profile_header img {
-        grid-row-start: 1;
-        grid-row-end: 3;
-    }
-    .profile_header .user_edit {
-        grid-column-start: 3;
-        grid-column-end: 4;
-    }
-    .profile_header .user_bio {
-        grid-row-start: 2;
-        grid-row-end: 4;
-    }
+    // .profile_header img {
+    //     grid-row-start: 1;
+    //     grid-row-end: 3;
+    // }
+    // .profile_header .user_edit {
+    //     grid-column-start: 3;
+    //     grid-column-end: 4;
+    // }
+    // .profile_header .user_bio {
+    //     grid-row-start: 2;
+    //     grid-row-end: 4;
+    // }
     .user_edit_box {
         text-align: center;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        // flex-basis: 25%;
+        // justify-content: stretch;
         align-content: center;
         grid-column: 1/2;
         .user_edit {
             margin: 5px;
+            width: 120px;
         }
     }
     .follow_user {
-        display: grid;
-        grid-template-columns: 1fr 4fr;
-        grid-template-rows: 1fr 1fr;
-        grid-gap: 15px;
+        display: flex;
+        // grid-template-columns: 1fr 4fr;
+        // grid-template-rows: 1fr 1fr;
+        // grid-gap: 15px;
         justify-items: center;
     }
     .follow_user .profile_img {
@@ -311,5 +328,10 @@ p {
     .follow_user .user_bio {
         grid-row: 2 / 3;
         grid-column: 2 / 3;
+    }
+    .profile_text {
+        padding-left: 50px;
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -4,7 +4,7 @@
             <div class="main_width">
                 <div class="post">
                     <div class="post_upper">
-                        <a href="./../profile/<%= author._id %>"><img class="profile_img" src="/<%= author.profileImgUrl %>"></a>
+                        <a href="./../profile/<%= author._id %>"><img class="profile_img" src="/<%= author.profileImgUrl %>" onerror="noImage(this)"></a>
                         <p>
                             <%= author.name %>
                         </p>
