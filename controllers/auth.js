@@ -334,7 +334,7 @@ exports.generateFollows = async(req, res, next) => {
                 // }
                 randomUserId = [];
             }
-            console.log(users);
+            // console.log(users);
         } else {
             throw err;
         }
