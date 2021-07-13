@@ -17,7 +17,8 @@ router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
 router.get('/like/:postId/:page', isAuth, userController.likePost);
 
-router.get('/comment/:postId', isAuth, userController.newComment);
+router.get('/comment/:postId', isAuth, userController.postDetails); // Seems redundant to have two layouts that look the same
+// router.get('/comment/:postId', isAuth, userController.newComment);
 
 router.post('/postComment', isAuth, userController.postComment);
 

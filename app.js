@@ -42,17 +42,13 @@
  };
 
  const app = express();
-
- app.set('view engine', 'ejs');
- app.set('views', 'views');
-
  const mainRouter = require('./routes/main');
  const userRouter = require('./routes/user');
  const authRouter = require('./routes/auth');
 
- app.use(bodyParser.urlencoded({
-     extended: false
- }));
+ app.set('view engine', 'ejs');
+ app.set('views', 'views');
+ app.use(bodyParser.urlencoded({ extended: false }));
  app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
  app.use(express.static(path.join(__dirname, 'public')));
  app.use('/images', express.static(path.join(__dirname, 'images')));

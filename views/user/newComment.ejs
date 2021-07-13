@@ -4,19 +4,25 @@
             <div class="main_width">
                 <div class="post">
                     <div class="post_upper">
-                        <p><%= author.name %></p>
-                        <p><%= post.time %></p>
+                        <p>
+                            Posted by:
+                            <%= author.name %>
+                        </p>
+                        <p>
+                            At:
+                            <%= post.time %>
+                        </p>
                     </div>
-                    <img src="/<%= post.image %>">
+                    <img style="width: 100%; height: auto;" src="/<%= post.image %>">
                     <div class="feed_lower">
                         <div class="icon__left">
                             <% if(userLiked){ %>
                                 <i class="fa fa-heart fa-2x"></i>
-                            <% }else{ %>
-                                <a href="../like/<%= post._id %>"><i class="far fa-heart fa-2x"></i></a>
-                            <% } %>
-                            <a href="../comment/<%= post._id %>"><i class="far fa-comment fa-2x"></i></a>
-                            <i class="far fa-share-square fa-2x"></i>
+                                <% }else{ %>
+                                    <a href="../like/<%= post._id %>"><i class="far fa-heart fa-2x"></i></a>
+                                    <% } %>
+                                        <a href="../comment/<%= post._id %>"><i class="far fa-comment fa-2x"></i></a>
+                                        <i class="far fa-share-square fa-2x"></i>
                         </div>
                         <span class="icon__text">&nbsp;
                             Likes: <%= likes %>
