@@ -18,7 +18,7 @@ exports.getLogin = (req, res, next) => {
     }
     res.render('auth/login', {
         path: '/login',
-        pageTitle: 'Login',
+        pageTitle: 'Pictournal | Login',
         errorMessage: message,
         originalInput: {
             email: ''
@@ -36,7 +36,7 @@ exports.getSignup = (req, res, next) => {
     }
     res.render('auth/signup', {
         path: '/signup',
-        pageTitle: 'Signup',
+        pageTitle: 'Pictournal | Signup',
         errorMessage: message,
         originalInput: {
             email: ''
@@ -53,7 +53,7 @@ exports.postLogin = (req, res, next) => {
     if (!errors.isEmpty()) {
         return res.status(422).render('auth/login', {
             path: '/login',
-            pageTitle: 'Login',
+            pageTitle: 'Pictournal | Login',
             errorMessage: errors.array()[0].msg,
             originalInput: {
                 email: email
@@ -68,7 +68,7 @@ exports.postLogin = (req, res, next) => {
             if (!user) {
                 return res.status(422).render('auth/login', {
                     path: '/login',
-                    pageTitle: 'Login',
+                    pageTitle: 'Pictournal | Login',
                     errorMessage: 'Invalid email or password.',
                     originalInput: {
                         email: email
@@ -117,7 +117,7 @@ exports.postSignup = (req, res, next) => {
         console.log(errors.array())
         return res.status(422).render('auth/signup', {
             path: '/signup',
-            pageTitle: 'Signup',
+            pageTitle: 'Pictournal | Signup',
             errorMessage: errors.array()[0].msg,
             originalInput: {
                 email: email
@@ -160,7 +160,7 @@ exports.getReset = (req, res, next) => {
     }
     res.render('auth/reset', {
         path: '/reset',
-        pageTitle: 'Reset Password',
+        pageTitle: 'Pictournal | Reset Password',
         errorMessage: message
     });
 };
@@ -213,7 +213,7 @@ exports.getNewPassword = (req, res, next) => {
             }
             res.render('auth/new-password', {
                 path: 'new-password',
-                pageTitle: 'New Password',
+                pageTitle: 'Pictournal | New Password',
                 errorMessage: message,
                 userId: user._id.toString(),
                 passwordToken: token

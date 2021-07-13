@@ -63,13 +63,13 @@
 
  // ENABLE TO CREATE 1 new user and between 3 and 15 random posts. 
  // ----------------------------------------------------------------------------
- authCtrl.generateFakeUsers();
+ //  authCtrl.generateFakeUsers();
  // ----------------------------------------------------------------------------
  // May take a minute with the sleep delay (ensures posts aren't repeats)
 
  //  ENABLE TO CREATE follows for all users in the database
  //  ----------------------------------------------------------------------------
- authCtrl.generateFollows();
+ //  authCtrl.generateFollows();
  //  ----------------------------------------------------------------------------
  //  Also takes a minute for sleep delay
 

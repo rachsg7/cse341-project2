@@ -63,7 +63,7 @@ exports.getProfile = (req, res, next) => {
                 if (mainUser._id.toString() == visiting.toString()) {
                     return res.render('user/profile', {
                         path: '/profile',
-                        pageTitle: 'Pictournal || Profile',
+                        pageTitle: 'Pictournal | Profile',
                         username: username,
                         posts: feed,
                         following: following,
@@ -78,7 +78,7 @@ exports.getProfile = (req, res, next) => {
                 // If the user does not own the profile, they cannot edit
                 return res.render('user/profile', {
                     path: '/profile',
-                    pageTitle: 'Pictournal || Profile',
+                    pageTitle: 'Pictournal | Profile',
                     username: username,
                     posts: feed,
                     following: following,
@@ -111,7 +111,7 @@ exports.getEditProfile = (req, res, next) => {
     } else {
         return res.render('user/edit-profile', {
             path: '/profile',
-            pageTitle: 'Edit Profile',
+            pageTitle: 'Pictournal | Edit Profile',
             validationErrors: [],
             user: user
         })
@@ -131,7 +131,7 @@ exports.postEditProfile = async(req, res, next) => {
     if (!errors.isEmpty()) {
         return res.status(422).render('user/edit-profile', {
             path: '/profile',
-            pageTitle: 'Edit Profile',
+            pageTitle: 'Pictournal | Edit Profile',
             username: username,
             bio: bio,
             errorMessage: errors.array()[0].msg,
@@ -283,7 +283,7 @@ exports.getFeed = (req, res, next) => {
     }).then(() => {
         res.render('user/feed', {
             path: '/feed',
-            pageTitle: 'Feed',
+            pageTitle: 'Pictournal | Your Feed',
             user: req.user,
             posts: feed,
             likes: likes,
@@ -295,7 +295,7 @@ exports.getFeed = (req, res, next) => {
 exports.newPost = (req, res, next) => {
     res.render('user/newPost', {
         path: '/newPost',
-        pageTitle: 'New Post',
+        pageTitle: 'Pictournal | New Post',
         user: req.user
     })
 };
@@ -311,7 +311,7 @@ exports.editPost = (req, res, next) => {
         }
         res.render('user/editPost', {
             path: '/editPost',
-            pageTitle: 'Edit Post',
+            pageTitle: 'Pictournal | Edit Post',
             user: req.user,
             post: post,
             id: post._id,
@@ -405,7 +405,7 @@ exports.postDetails = (req, res, next) => {
         User.findById(post.userId).then(author => {
             res.render('user/postDetails', {
                 path: '/postDetails',
-                pageTitle: 'Post Details',
+                pageTitle: 'Pictournal | Post Details',
                 user: req.user,
                 author: author,
                 post: post,

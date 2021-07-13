@@ -41,9 +41,9 @@
                         <% } else if(!posts) { %>
                             <h1>Nothing to see here.</h1>
                             <% } else { %>
-                                <% for (let i = posts.length - 1; i >= 0; i--){ %>
-                                    <div class="left">
-
+                                <% for (let i = posts.length - 1; i >= 0; i--){  
+                                    var link = "../../postDetails/" + posts[i]._id %>
+                                    <div class="left" onclick="window.location.href='<%= link %>'">
                                         <div class="feed">
                                             <div class="feed_img">
                                                 <img src="/<%= posts[i].image %>" onerror="noImage(this)" loading="lazy">
