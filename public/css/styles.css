@@ -251,6 +251,7 @@ li img {
 .far {
   -webkit-filter: brightness(0) invert(1);
           filter: brightness(0) invert(1);
+  padding-right: 10px;
 }
 
 .fa:hover,
