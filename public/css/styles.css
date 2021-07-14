@@ -284,6 +284,28 @@ li img {
   padding: 5px;
 }
 
+.pagination {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.pagination a {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5em;
+  font-family: "Montserrat", sans-serif;
+  max-width: 200px;
+  margin: 15px 5px;
+}
+
+.pagination a:hover {
+  color: white;
+  background-color: black;
+}
 article.main_page__user_hover {
   position: absolute;
   bottom: 2%;
