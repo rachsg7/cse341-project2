@@ -13,10 +13,18 @@
                     <%  posts = posts.sort(() => Math.random() - 0.5)
                         for (post of posts){ %>
 
-                        <li style="width:33%; height:auto;">
+                        <li class="main_page__post" style="width:33%; height:auto; position: relative;">
                             <a href="../../postDetails/<%= post._id %>">
-                                                <img src="/<%= post.image %>" onerror="noImage(this)" >
-                        </a>
+                                <img class="main_page__img" src="/<%= post.image %>" onerror="noImage(this)" >
+                                </a>
+                            <article class="main_page__user_hover">
+                                <a href="/profile/<%= post.userId._id %>">
+                                    <h2>
+                                        <%= post.userId.name %>
+                                    </h2>
+                                    <img class="main_page__user" src="<%= post.userId.profileImgUrl %>" onerror="noImage(this)">
+                                </a>
+                            </article>
                         </li>
                         <% } %>
 
