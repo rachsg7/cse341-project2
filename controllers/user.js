@@ -8,6 +8,9 @@ const fileHelper = require('../util/file');
 const user = require('../models/user');
 const bcrypt = require('bcryptjs');
 
+const ITEMS_PER_PROFILE_PAGE = 5;
+const ITEMS_PER_FEED_PAGE = 10;
+
 const getLikes = (user, id, comments, obj) => {
     return new Promise((resolve, reject) => {
         Comment.find({ postId: id })
@@ -32,8 +35,12 @@ const getLikes = (user, id, comments, obj) => {
 }
 
 exports.getProfile = (req, res, next) => {
+    const followers = req.user.following.users;
+    const page = +req.query.page || 1;
     const visiting = req.params.userId;
     const isFollowing = req.user.isFollowing(visiting);
+
+    let totalPosts;
     let likes = [];
     let liked = [];
     let feed = [];
@@ -47,7 +54,14 @@ exports.getProfile = (req, res, next) => {
             const id = mainUser._id;
             const following = user.following.users.length;
             //find post for user
-            Post.find({ userId: visiting }).then(async posts => {
+            Post.find({ userId: visiting }).countDocuments()
+            .then(numPosts => {
+                totalPosts = numPosts;
+                // console.log(totalPosts);
+                return Post.find({ userId: visiting })
+                .skip((page - 1) * ITEMS_PER_PROFILE_PAGE)
+                .limit(ITEMS_PER_PROFILE_PAGE)})
+                .then(async posts => {
                 feed = posts;
                 for (post of posts) {
                     const postId = post._id;
@@ -72,7 +86,13 @@ exports.getProfile = (req, res, next) => {
                         canEdit: true,
                         isFollowing: isFollowing,
                         likes: likes,
-                        liked: liked
+                        liked: liked,
+                        currentPage: page,
+                        hasNextPage: ITEMS_PER_PROFILE_PAGE * page < totalPosts,
+                        hasPreviousPage: page > 1,
+                        nextPage: page + 1,
+                        previousPage: page - 1,
+                        lastPage: Math.ceil(totalPosts / ITEMS_PER_PROFILE_PAGE)
                     });
                 }
                 // If the user does not own the profile, they cannot edit
@@ -87,7 +107,13 @@ exports.getProfile = (req, res, next) => {
                     canEdit: false,
                     isFollowing: isFollowing,
                     likes: likes,
-                    liked: liked
+                    liked: liked,
+                    currentPage: page,
+                    hasNextPage: ITEMS_PER_PROFILE_PAGE * page < totalPosts,
+                    hasPreviousPage: page > 1,
+                    nextPage: page + 1,
+                    previousPage: page - 1,
+                    lastPage: Math.ceil(totalPosts / ITEMS_PER_PROFILE_PAGE)
                 })
             });
         })
@@ -261,15 +287,26 @@ exports.postUnfollow = (req, res, next) => {
 
 exports.getFeed = (req, res, next) => {
     const followers = req.user.following.users;
+    const page = +req.query.page || 1;
+
+    let totalPosts;
     let likes = [];
     let liked = [];
     let feed = [];
     const id = [];
 
+
     for (follower of followers) {
         id.push(new mongodb.ObjectId(follower.userId));
     }
-    Post.find({ userId: { $in: id } }).then(async posts => {
+    Post.find({ userId: { $in: id } }).countDocuments()
+        .then(numPosts => {
+            totalPosts = numPosts;
+        // console.log(totalPosts);
+            return Post.find({ userId: { $in: id } })
+                .skip((page - 1) * ITEMS_PER_FEED_PAGE)
+                .limit(ITEMS_PER_FEED_PAGE)
+    }).then(async posts => {
         feed = posts;
         for (post of posts) {
             const postId = post._id;
@@ -287,7 +324,13 @@ exports.getFeed = (req, res, next) => {
             user: req.user,
             posts: feed,
             likes: likes,
-            liked: liked
+            liked: liked,
+            currentPage: page,
+            hasNextPage: ITEMS_PER_FEED_PAGE * page < totalPosts,
+            hasPreviousPage: page > 1,
+            nextPage: page + 1,
+            previousPage: page - 1,
+            lastPage: Math.ceil(totalPosts / ITEMS_PER_FEED_PAGE)
         });
     });
 };
