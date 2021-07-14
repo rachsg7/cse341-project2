@@ -3,6 +3,7 @@ const Comment = require('../models/comment');
 
 exports.getIndex = (req, res, next) => {
     Posts.find()
+        .populate('userId')
         .then(posts => {
             res.render('index', {
                 posts: posts,

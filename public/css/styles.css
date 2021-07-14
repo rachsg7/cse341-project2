@@ -284,6 +284,42 @@ li img {
   padding: 5px;
 }
 
+article.main_page__user_hover {
+  position: absolute;
+  bottom: 2%;
+  left: 2.5%;
+  background-color: #333333;
+  width: 95%;
+  padding: 0px 0px 30px 0px;
+  border-radius: 25%;
+  visibility: hidden;
+  opacity: 0;
+  border-bottom: 3px solid black;
+  border-right: 3px solid black;
+  -webkit-transform: translate(0px, 100px);
+          transform: translate(0px, 100px);
+  -webkit-transition: .5s;
+  transition: .5s;
+}
+
+article.main_page__user_hover a {
+  color: white;
+  text-decoration: none;
+}
+
+.main_page__post:hover > .main_page__user_hover {
+  visibility: visible;
+  opacity: 1;
+  z-index: 200;
+  -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+
+img.main_page__user {
+  width: 100px;
+  border-radius: 50%;
+}
+
 @media only screen and (min-width: 768px) {
   .main__nav {
     display: -webkit-box;
