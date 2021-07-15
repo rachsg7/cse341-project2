@@ -476,6 +476,18 @@ ul {
   background-position: center;
 }
 
+.main_page__img {
+  height: 500px !important;
+  width: 100% !important;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .profile_img {
   border-radius: 150px;
   max-width: 300px;
