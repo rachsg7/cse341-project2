@@ -1,5 +1,6 @@
 const Posts = require('../models/post');
 const Comment = require('../models/comment');
+const post = require('../models/post');
 
 exports.getIndex = (req, res, next) => {
     Posts.find()

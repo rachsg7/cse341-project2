@@ -55,35 +55,57 @@ exports.getProfile = (req, res, next) => {
             const following = user.following.users.length;
             //find post for user
             Post.find({ userId: visiting }).countDocuments()
-            .then(numPosts => {
-                totalPosts = numPosts;
-                // console.log(totalPosts);
-                return Post.find({ userId: visiting })
-                .skip((page - 1) * ITEMS_PER_PROFILE_PAGE)
-                .limit(ITEMS_PER_PROFILE_PAGE)})
+                .then(numPosts => {
+                    totalPosts = numPosts;
+                    // console.log(totalPosts);
+                    return Post.find({ userId: visiting })
+                        .skip((page - 1) * ITEMS_PER_PROFILE_PAGE)
+                        .limit(ITEMS_PER_PROFILE_PAGE)
+                })
                 .then(async posts => {
-                feed = posts;
-                for (post of posts) {
-                    const postId = post._id;
-                    let comments = [];
-                    let obj = { likes: 0, liked: false };
-                    await getLikes(req.user._id, postId, comments, obj).then(() => {
-                        likes.push(obj.likes);
-                        liked.push(obj.liked);
-                    })
-                }
-            }).then(() => {
-                // If the user is the owner of the Profile, they are allowed to edit
-                if (mainUser._id.toString() == visiting.toString()) {
+                    feed = posts;
+                    for (post of posts) {
+                        const postId = post._id;
+                        let comments = [];
+                        let obj = { likes: 0, liked: false };
+                        await getLikes(req.user._id, postId, comments, obj).then(() => {
+                            likes.push(obj.likes);
+                            liked.push(obj.liked);
+                        })
+                    }
+                }).then(() => {
+                    // If the user is the owner of the Profile, they are allowed to edit
+                    if (mainUser._id.toString() == visiting.toString()) {
+                        return res.render('user/profile', {
+                            path: '/profile',
+                            pageTitle: 'Pictournal | Profile',
+                            username: username,
+                            posts: feed,
+                            following: following,
+                            user: user,
+                            profileUser: user,
+                            canEdit: true,
+                            isFollowing: isFollowing,
+                            likes: likes,
+                            liked: liked,
+                            currentPage: page,
+                            hasNextPage: ITEMS_PER_PROFILE_PAGE * page < totalPosts,
+                            hasPreviousPage: page > 1,
+                            nextPage: page + 1,
+                            previousPage: page - 1,
+                            lastPage: Math.ceil(totalPosts / ITEMS_PER_PROFILE_PAGE)
+                        });
+                    }
+                    // If the user does not own the profile, they cannot edit
                     return res.render('user/profile', {
                         path: '/profile',
                         pageTitle: 'Pictournal | Profile',
                         username: username,
                         posts: feed,
                         following: following,
-                        user: user,
+                        user: mainUser,
                         profileUser: user,
-                        canEdit: true,
+                        canEdit: false,
                         isFollowing: isFollowing,
                         likes: likes,
                         liked: liked,
@@ -93,29 +115,8 @@ exports.getProfile = (req, res, next) => {
                         nextPage: page + 1,
                         previousPage: page - 1,
                         lastPage: Math.ceil(totalPosts / ITEMS_PER_PROFILE_PAGE)
-                    });
-                }
-                // If the user does not own the profile, they cannot edit
-                return res.render('user/profile', {
-                    path: '/profile',
-                    pageTitle: 'Pictournal | Profile',
-                    username: username,
-                    posts: feed,
-                    following: following,
-                    user: mainUser,
-                    profileUser: user,
-                    canEdit: false,
-                    isFollowing: isFollowing,
-                    likes: likes,
-                    liked: liked,
-                    currentPage: page,
-                    hasNextPage: ITEMS_PER_PROFILE_PAGE * page < totalPosts,
-                    hasPreviousPage: page > 1,
-                    nextPage: page + 1,
-                    previousPage: page - 1,
-                    lastPage: Math.ceil(totalPosts / ITEMS_PER_PROFILE_PAGE)
-                })
-            });
+                    })
+                });
         })
         .catch(err => {
             res.redirect('/404');
@@ -302,37 +303,37 @@ exports.getFeed = (req, res, next) => {
     Post.find({ userId: { $in: id } }).countDocuments()
         .then(numPosts => {
             totalPosts = numPosts;
-        // console.log(totalPosts);
+            // console.log(totalPosts);
             return Post.find({ userId: { $in: id } })
                 .skip((page - 1) * ITEMS_PER_FEED_PAGE)
                 .limit(ITEMS_PER_FEED_PAGE)
-    }).then(async posts => {
-        feed = posts;
-        for (post of posts) {
-            const postId = post._id;
-            let comments = [];
-            let obj = { likes: 0, liked: false };
-            await getLikes(req.user._id, postId, comments, obj).then(() => {
-                likes.push(obj.likes);
-                liked.push(obj.liked);
-            })
-        }
-    }).then(() => {
-        res.render('user/feed', {
-            path: '/feed',
-            pageTitle: 'Pictournal | Your Feed',
-            user: req.user,
-            posts: feed,
-            likes: likes,
-            liked: liked,
-            currentPage: page,
-            hasNextPage: ITEMS_PER_FEED_PAGE * page < totalPosts,
-            hasPreviousPage: page > 1,
-            nextPage: page + 1,
-            previousPage: page - 1,
-            lastPage: Math.ceil(totalPosts / ITEMS_PER_FEED_PAGE)
+        }).then(async posts => {
+            feed = posts;
+            for (post of posts) {
+                const postId = post._id;
+                let comments = [];
+                let obj = { likes: 0, liked: false };
+                await getLikes(req.user._id, postId, comments, obj).then(() => {
+                    likes.push(obj.likes);
+                    liked.push(obj.liked);
+                })
+            }
+        }).then(() => {
+            res.render('user/feed', {
+                path: '/feed',
+                pageTitle: 'Pictournal | Your Feed',
+                user: req.user,
+                posts: feed,
+                likes: likes,
+                liked: liked,
+                currentPage: page,
+                hasNextPage: ITEMS_PER_FEED_PAGE * page < totalPosts,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalPosts / ITEMS_PER_FEED_PAGE)
+            });
         });
-    });
 };
 
 exports.newPost = (req, res, next) => {
@@ -390,6 +391,18 @@ exports.postEditPost = (req, res, next) => {
     });
 };
 
+exports.postDeletePost = (req, res, next) => {
+    const id = req.body.postId;
+
+    Post.findById(id).then(post => {
+
+        fileHelper.deleteFile(post.image);
+        return post.deleteOne({ _id: id, userId: req.user._id })
+            .then(result => {
+                res.redirect('/profile/' + req.user._id);
+            });
+    });
+};
 
 exports.postNewPost = (req, res, next) => {
     const tags = (req.body.tags).split("#");
@@ -409,7 +422,7 @@ exports.postNewPost = (req, res, next) => {
     });
     post.save()
         .then(result => {
-            res.redirect('/feed');
+            res.redirect('/postDetails/' + post._id);
         })
         .catch(err => {
             const error = new Error(err);

@@ -13,6 +13,8 @@ router.get('/edit/:postId', isAuth, userController.editPost);
 
 router.post('/edit', isAuth, userController.postEditPost);
 
+router.post('/delete', isAuth, userController.postDeletePost);
+
 router.get('/postDetails/:postId', isAuth, userController.postDetails);
 
 router.get('/like/:postId/:page', isAuth, userController.likePost);
