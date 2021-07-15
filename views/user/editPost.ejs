@@ -34,6 +34,11 @@
                     <input type="text" value="<%= post._id%>" name="postId" hidden>
                     <button class="btn" type="submit">Submit</button>
                 </form>
+                <form class="form-new-post" action="/delete" method="POST" enctype="multipart/form-data">
+                    <input type="text" value="<%= post._id%>" name="postId" hidden>
+                    <button class="btn" type="submit">Delete Post</button>
+                    <p class="warning">This action is permanent and cannot be undone!</p>
+                </form>
             </div>
         </main>
         <%- include('../includes/end.ejs') %>

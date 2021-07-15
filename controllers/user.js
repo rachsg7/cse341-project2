@@ -390,6 +390,18 @@ exports.postEditPost = (req, res, next) => {
     });
 };
 
+exports.postDeletePost = (req, res, next) => {
+    const id = req.body.postId;
+
+    Post.findById(id).then(post => {
+
+        fileHelper.deleteFile(post.image);
+        return post.deleteOne({_id: id, userId: req.user._id})
+        .then(result => {
+            res.redirect('/profile/' + req.user._id);
+        });
+    });
+};
 
 exports.postNewPost = (req, res, next) => {
     const tags = (req.body.tags).split("#");
