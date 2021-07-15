@@ -397,10 +397,10 @@ exports.postDeletePost = (req, res, next) => {
     Post.findById(id).then(post => {
 
         fileHelper.deleteFile(post.image);
-        return post.deleteOne({_id: id, userId: req.user._id})
-        .then(result => {
-            res.redirect('/profile/' + req.user._id);
-        });
+        return post.deleteOne({ _id: id, userId: req.user._id })
+            .then(result => {
+                res.redirect('/profile/' + req.user._id);
+            });
     });
 };
 
