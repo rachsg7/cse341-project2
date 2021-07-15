@@ -299,16 +299,17 @@ li img {
 
 article.main_page__user_hover {
     position: absolute;
-    bottom: 2%;
-    left: 2.5%;
-    background-color: #333333;
-    width: 95%;
+    border-top: 2pt solid white;
+    bottom: 0%;
+    // left: 2.5%;
+    background-color: rgba(56, 56, 56, 0.7);
+    width: 100%;
     padding: 0px 0px 30px 0px;
-    border-radius: 25%;
+    // border-radius: 25%;
     visibility: hidden;
     opacity: 0;
-    border-bottom: 3px solid black;
-    border-right: 3px solid black;
+    // border-bottom: 3px solid black;
+    // border-right: 3px solid black;
     transform: translate(0px, 100px);
     transition: .5s;
 }
