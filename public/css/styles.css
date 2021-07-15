@@ -489,9 +489,9 @@ ul {
 }
 
 .profile_img {
-  border-radius: 150px;
-  max-width: 300px;
-  max-height: 300px;
+  border-radius: 100px;
+  width: 200px;
+  height: 200px;
 }
 
 @media (max-aspect-ratio: 1 / 1) {
