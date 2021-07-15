@@ -6,7 +6,7 @@
                     <% following.forEach(u => { %>
                         <article class="follow_user">
                             <a class="profile_img" href="/profile/<%= u.userId._id %>">
-                                    <img class="profile_img" src="/<%= u.userId.profileImgUrl%>">
+                                    <img class="profile_img" src="/<%= u.userId.profileImgUrl%>" onerror="noImage(this)">
                                 </a>
                             <div class="user_name">
                                 <a href="/profile/<%= u.userId._id %>">

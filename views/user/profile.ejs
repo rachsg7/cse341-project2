@@ -3,7 +3,7 @@
         <main>
             <div class="main_width">
                 <div class="profile_header">
-                    <img class="profile_img" src="/<%= profileUser.profileImgUrl %>">
+                    <img class="profile_img" src="/<%= profileUser.profileImgUrl %>" onerror="noImage(this)">
                     <div class="profile_text">
                         <div class="user_name">
                             <%= username %>

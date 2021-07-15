@@ -13,7 +13,7 @@
                             <%= post.time %>
                         </p>
                     </div>
-                    <img style="width: 100%; height: auto;" src="/<%= post.image %>">
+                    <img style="width: 100%; height: auto;" src="/<%= post.image %>" onerror="noImage(this)">
                     <div class="feed_lower">
                         <div class="icon__left">
                             <% if(userLiked){ %>
