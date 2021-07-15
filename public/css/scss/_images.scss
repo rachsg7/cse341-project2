@@ -16,7 +16,7 @@ ul {
 .gallery li {
     // height: 100%;
     flex-grow: 1;
-    border: 5pt solid white;
+    border: 5pt solid #d3d3d3;
     overflow: hidden;
     text-align: center;
 }
@@ -163,4 +163,16 @@ ul {
 .user__static {
     position: fixed;
     width: 500px;
+}
+
+.profile_header,
+.gallery,
+.message_main,
+.form-new-post,
+.login-form,
+.follow_user {
+    background: #d3d3d3;
+    padding: 2%;
+    border-radius: 20px;
+    border: none;
 }
